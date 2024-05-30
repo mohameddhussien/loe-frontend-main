@@ -1,0 +1,26 @@
+@import '../utils/variables.scss';
+
+.list-style {
+    background: transparent;
+    color: var(--light-title-color);
+    transition: background-color 0.3s, color 0.3s ease-in-out;
+
+    &:hover {
+        color: $white-color;
+        background: $primary-color-1;
+    }
+
+    &.v-list-item--active {
+        background-color: $primary-color-2;
+        color: var(--light-title-color);
+
+        &:hover {
+            color: $white-color;
+            background: $primary-color-1;
+        }
+    }
+}
+
+.item-group {
+    display: flex;
+}

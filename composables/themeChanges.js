@@ -1,0 +1,1 @@
+export const useThemeChanges = () => useState('theme', () => '')

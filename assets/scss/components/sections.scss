@@ -1,0 +1,51 @@
+@import '../utils/variables.scss';
+
+.v-stepper>.v-stepper-header {
+    outline: 1px solid rgba($color: var(--light-subtitle-color), $alpha: 0.6);
+    box-shadow: $box-shadow-lighter;
+}
+
+.booking-container {
+    @media screen and (max-width: 450px) {
+        padding: 5px !important;
+    }
+}
+
+.v-stepper>.v-window {
+    @media screen and (max-width: 450px) {
+        margin: 5px;
+    }
+}
+
+.section {
+    &.lighter {
+        background-color: rgba($color: white, $alpha: 0.4);
+        outline: 1px solid $border-color;
+        // box-shadow: $box-shadow-lighter;
+    }
+
+    &.primary {
+        // background-color: rgba(255, 221, 250, 0.4);
+    }
+    &.tonal {
+        background-color: rgba(255, 221, 250, 0.4);
+        outline: 1px solid $border-color;
+    }
+}
+
+
+.fade-in-border {
+
+    &.primary {
+        animation: #{$primaryAnimationName} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        outline: 2px solid $primary-color-1;
+        @include pulseBorderKeyframes(#{$primaryAnimationName}, $primary-color-1, $primary-color-2, $border-color, $box-shadow-lighter);
+    }
+
+    &.secondary {
+        animation: #{$secondaryAnimationName} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        outline: 2px solid $secondary-color-1;
+        @include pulseBorderKeyframes(#{$secondaryAnimationName}, $secondary-color-1, $secondary-color-2, $border-color, $box-shadow);
+    }
+
+}
