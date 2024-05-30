@@ -50,7 +50,7 @@ export default defineNuxtConfig({
         config.plugins.push(vuetify({ autoImport: true }))
       })
     },
-    // '@sidebase/nuxt-session',
+    '@sidebase/nuxt-session',
     '@nuxtjs/google-fonts',
     //...
   ],
@@ -69,10 +69,10 @@ export default defineNuxtConfig({
       },
     },
   },
-  // session: {
-  //   session: {
-  //     expiryInSeconds: 1000 * 60,
-  //   }
-  // },
+  session: {
+    session: {
+      expiryInSeconds: 1000 * 60,
+    }
+  },
   css: ['@/assets/scss/app.scss'],
 })

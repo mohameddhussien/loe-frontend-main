@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@nuxtjs/date-fns": "^1.5.0",
+    "@sidebase/nuxt-session": "^0.2.8",
     "sass": "^1.77.3",
     "vite-plugin-vuetify": "^2.0.3",
     "vuetify": "^3.6.8"

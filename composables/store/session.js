@@ -1,6 +1,5 @@
-// const { session, refresh, update, reset } = await useSession()
-// const authenticated = ref(session.value?.token !== undefined)
-const authenticated = ref(false)
+const { session, refresh, update, reset } = await useSession()
+const authenticated = ref(session.value?.token !== undefined)
 
 
 const loading = ref(false)
@@ -38,9 +37,9 @@ const register = async (formData) => {
 
 
 const logout = async () => {
-    // await reset()
+    await reset()
     reloadNuxtApp()
-    // console.log("Session has token: ", session.value?.token)
+    console.log("Session has token: ", session.value?.token)
 }
-// update, refresh, session
-export { authenticated as hasToken, login, register, logout, loading }
+
+export { authenticated as hasToken, login, register, logout, update, refresh, session, loading }
