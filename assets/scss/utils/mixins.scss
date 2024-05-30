@@ -14,7 +14,7 @@
 @mixin button-styles($background, $hover, $active) {
     background-color: $background;
     color: $white-color;
-    // border: 1px solid $border-color;
+    // border: 1px solid var(--border-color);
     @include flex-sized-button;
     cursor: pointer;
     box-shadow: $box-shadow;
@@ -94,16 +94,19 @@
         font-weight: $font-weight;
         color: $color;
     }
-
+    transition: $transition;
     background-color: #e4e4e4;
+    box-shadow: $box-shadow-lighter;
 
     &:hover {
         color: $white-color;
-        background-color: $primary-color-1;
+        background-color: var(--primary-color-1);
+        transform: scale(1.05);
     }
-
+    
     &:active {
-        background-color: $primary-color-2;
+        background-color: var(--primary-color-2);
+        transform: scale(0.95);
     }
 }
 

@@ -10,11 +10,11 @@ const myLightColors: Record<string, string> = {
     'secondary-2': '#f8c0f5',
     'primary-3': '#ffe6eb',
     'light-title': '#2D2D2D',
-    'dark-title': '#101b20',
+    'dark-title': '#101A22',
     'light-subtitle': '#B8B8B8',
     'dark-subtitle': '#737373',
     'light-text': '#F9F9F9',
-    'dark-background': '#223841',
+    'dark-background': '#60656F',
     'light-background': '#eff3f8',
     'lighter-background': 'rgba(255,221,250,0.1)',
     hover: '#46A6F4',
@@ -26,13 +26,13 @@ const myLightColors: Record<string, string> = {
     error: colors.red.base
 }
 const myDarkColors: Record<string, string> = {
-    background: '#101b20', // Using the dark title color as a base background
-    surface: '#223841', // Using the dark background color as a surface
-    primary: '#ff97aa', // Keeping primary color the same
-    secondary: '#f097fc', // Keeping secondary color the same
-    'primary-2': '#ffbfca', // Keeping primary-2 color the same
-    'secondary-2': '#f8c0f5', // Keeping secondary-2 color the same
-    'primary-3': '#ffe6eb', // Keeping primary-3 color the same
+    background: '#101A22', // Using the dark title color as a base background
+    surface: '#60656F', // Using the dark background color as a surface
+    primary: '#ff6e84', // Adjusted primary color
+    secondary: '#e577fa', // Adjusted secondary color
+    'primary-2': '#ff8093', // Keeping primary-2 color the same
+    'secondary-2': '#dfa6e3', // Keeping secondary-2 color the same
+    'primary-3': '#ffb3c0', // Adjusted primary-3 color
     'light-title': '#F9F9F9', // Swapping light and dark titles
     'dark-title': '#EAEEF2', // Swapping light and dark titles
     'light-subtitle': '#737373', // Swapping light and dark subtitles
@@ -40,7 +40,7 @@ const myDarkColors: Record<string, string> = {
     'light-text': '#2D2D2D', // Using a dark color for light text
     'dark-background': '#eff3f8', // Using light background for dark background
     'light-background': '#2D2D2D', // Using dark title for light background
-    'lighter-background': 'rgba(34,56,65,0.1)', // Adjusting lighter background to be more subtle
+    'lighter-background': '#2D2D2D', // Adjusting lighter background to be more subtle
     hover: '#46A6F4', // Keeping hover color the same
     'disabled-element': '#8EC2F2', // Keeping disabled element color the same
     muted: '#BDBDBD', // Keeping muted color the same

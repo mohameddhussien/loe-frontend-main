@@ -29,15 +29,15 @@ body {
 
     &::-webkit-scrollbar-thumb {
         border-radius: 20px;
-        background-color: $primary-color-1;
-        border: 1px solid $border-color;
+        background-color: var(--primary-color-1);
+        border: 1px solid var(--border-color);
 
         &:hover {
-            background-color: $primary-color-2;
+            background-color: var(--primary-color-2);
         }
 
         &:active {
-            background-color: $primary-color-3;
+            background-color: var(--primary-color-3);
         }
     }
 }

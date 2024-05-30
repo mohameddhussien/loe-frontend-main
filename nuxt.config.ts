@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       jsonData: true,
-      baseURL: 'http://192.168.1.23:5000/'
+      baseURL: 'http://192.168.1.45:3000/'
     },
   },
   ssr: false,

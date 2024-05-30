@@ -1,7 +1,7 @@
 @import '../utils/variables.scss';
 
 .v-stepper>.v-stepper-header {
-    outline: 1px solid rgba($color: var(--light-subtitle-color), $alpha: 0.6);
+    outline: 1px solid --light-subtitle-color;
     box-shadow: $box-shadow-lighter;
 }
 
@@ -19,8 +19,8 @@
 
 .section {
     &.lighter {
-        background-color: rgba($color: white, $alpha: 0.4);
-        outline: 1px solid $border-color;
+        background-color: var(--section-color-lighter);
+        outline: 1px solid var(--border-color);
         // box-shadow: $box-shadow-lighter;
     }
 
@@ -28,8 +28,8 @@
         // background-color: rgba(255, 221, 250, 0.4);
     }
     &.tonal {
-        background-color: rgba(255, 221, 250, 0.4);
-        outline: 1px solid $border-color;
+        background-color: var(--section-color-tonal);
+        outline: 1px solid var(--border-color);
     }
 }
 
@@ -38,14 +38,14 @@
 
     &.primary {
         animation: #{$primaryAnimationName} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        outline: 2px solid $primary-color-1;
-        @include pulseBorderKeyframes(#{$primaryAnimationName}, $primary-color-1, $primary-color-2, $border-color, $box-shadow-lighter);
+        outline: 2px solid var(--primary-color-1);
+        @include pulseBorderKeyframes(#{$primaryAnimationName}, var(--primary-color-1), var(--primary-color-2), var(--border-color), $box-shadow-lighter);
     }
 
     &.secondary {
         animation: #{$secondaryAnimationName} 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        outline: 2px solid $secondary-color-1;
-        @include pulseBorderKeyframes(#{$secondaryAnimationName}, $secondary-color-1, $secondary-color-2, $border-color, $box-shadow);
+        outline: 2px solid var(--secondary-color-1);
+        @include pulseBorderKeyframes(#{$secondaryAnimationName}, var(--secondary-color-1), var(--secondary-color-2), var(--border-color), $box-shadow);
     }
 
 }

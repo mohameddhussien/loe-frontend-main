@@ -74,10 +74,11 @@
             </tr>
         </template>
         <template #footer.prepend>
-            <v-btn-group class="mr-auto">
-                <my-btn bg-color="grey-lighten-3" @click="purchaseEvent(event)">
-                    Proceed to Purchase</my-btn>
-            </v-btn-group>
+            <v-item-group class="mr-auto">
+                <button class="special-button primary" @click="purchaseEvent(event)">
+                    Proceed to Purchase
+                </button>
+            </v-item-group>
         </template>
     </v-data-table>
 </template>

@@ -7,16 +7,16 @@
 
     &:hover {
         color: $white-color;
-        background: $primary-color-1;
+        background: var(--primary-color-1);
     }
 
     &.v-list-item--active {
-        background-color: $primary-color-2;
+        background-color: var(--primary-color-2);
         color: var(--light-title-color);
 
         &:hover {
             color: $white-color;
-            background: $primary-color-1;
+            background: var(--primary-color-1);
         }
     }
 }

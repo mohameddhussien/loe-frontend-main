@@ -29,10 +29,10 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters>
-                    <h1 class="text-3xl font-bold text-pink-accent-2">Total: {{ event?.PRICE }}EGP</h1>
+                    <h1>Total: {{ event?.PRICE }}EGP</h1>
                 </v-row>
                 <v-row>
-                    <v-divider class="border-opacity-100" color="pink-accent-2" />
+                    <v-divider class="border-opacity-100" />
                     <booking-table @edit="editItem" @delete="deleteItem" :event="event" :people="Adults"
                         :disable-actions-on="(!holdNav && !fullScreen)" :itemsPerPage="itemsPerPage" />
                 </v-row>

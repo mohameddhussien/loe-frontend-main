@@ -1,76 +1,6 @@
-// Light Theme Variables
-:root {
-  --light-title-color: #2D2D2D;
-  --dark-title-color: #101b20;
-  --light-text-color: #F9F9F9;
-  --light-subtitle-color: #B8B8B8;
-  --dark-subtitle-color: #737373;
-  --background-color: #EAEEF2;
-  --dark-background-color: #223841;
-  --light-background-color: #eff3f8;
-  --extralight-background-color: #F5F7F8;
-  --text-color: #333;
-  // --hover-color: #46A6F4;
-  // --disabled-element-color: #8EC2F2;
-  // --muted-color: #BDBDBD;
-  // --success-color: #2DC071;
-  // --alert-color: #F48242;
-  // --danger-color: #E74040;
-  // --white-color: #ffffff;
-}
-
-// Dark Theme Variables
-body.dark-theme {
-  --light-title-color: #F9F9F9;
-  --dark-title-color: #EAEEF2;
-  --light-text-color: #2D2D2D;
-  --light-subtitle-color: #737373;
-  --dark-subtitle-color: #B8B8B8;
-  --background-color: #201017;
-  --dark-background-color: #412238;
-  --light-background-color: #2D2D2D;
-  --extralight-background-color: #2b1a27;
-  --text-color: #F9F9F9;
-  // --hover-color: #46A6F4;
-  // --disabled-element-color: #8EC2F2;
-  // --muted-color: #BDBDBD;
-  // --success-color: #2DC071;
-  // --alert-color: #F48242;
-  // --danger-color: #E74040;
-  // --white-color: #ffffff;
-}
-
-$primary-color-1: #ff97aa;
-$primary-color-2: #ffbfca;
-$primary-color-3: #ffe6eb;
-
-$secondary-color-1: #f097fc;
-$secondary-color-2: #f8c0f5;
-
-// $light-title-color: #2D2D2D;
-// $dark-title-color: #101b20;
-
-// $light-text-color: #F9F9F9;
-
-// $light-subtitle-color: #B8B8B8;
-// $dark-subtitle-color: #737373;
-
-// $background-color: #EAEEF2;
-// $dark-background-color: #223841;
-// $light-background-color: #eff3f8;
-// $extralight-background-color: #F5F7F8;
-
-$hover-color: #46A6F4;
-$disabled-element-color: #8EC2F2;
-$muted-color: #BDBDBD;
-$success-color: #2DC071;
-$alert-color: #F48242;
-$danger-color: #E74040;
-
 $font-family: "Rethink Sans";
-
 $white-color: #ffffff;
-$border-color: rgba(194, 194, 194, 0.6);
+
 $box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 $box-shadow-lighter: 0 2px 10px rgba(0, 0, 0, 0.1);
 $border-radius-sm: 4px;
@@ -82,6 +12,77 @@ $transition: background-color 0.3s, transform 0.3s;
 
 
 $breakpoint-sm: 576px;
+
+// Light Theme Variables
+:root {
+  --primary-color-1: #ff97aa;
+  --primary-color-2: #ffbfca;
+  --primary-color-3: #ffe6eb;
+
+  --secondary-color-1: #f097fc;
+  --secondary-color-2: #f8c0f5;
+
+  --light-title-color: #2D2D2D;
+  --dark-title-color: #101A22;
+  --light-text-color: #F9F9F9;
+  --light-subtitle-color: #B8B8B8;
+  --dark-subtitle-color: #737373;
+  --background-color: #EAEEF2;
+  --dark-background-color: #60656F;
+  --light-background-color: #eff3f8;
+  --extralight-background-color: #F5F7F8;
+  --text-color: #333;
+
+  --hover-color: #46A6F4;
+  --disabled-element-color: #8EC2F2;
+  --muted-color: #BDBDBD;
+  --success-color: #2DC071;
+  --alert-color: #F48242;
+  --danger-color: #E74040;
+  --border-color: rgba(194, 194, 194, 0.6);
+  --section-color-lighter: rgba(119, 119, 119, 0.05);
+  --section-color-tonal: rgba(134, 107, 118, 0.01);
+  // --white-color: #ffffff;
+
+}
+
+// Dark Theme Variables
+body.dark-theme {
+  --primary-color-1: #ff6e84;
+  --primary-color-2: #ff8093;
+  --primary-color-3: #ffb3c0;
+
+  --secondary-color-1: #e577fa;
+  --secondary-color-2: #dfa6e3;
+
+
+  --light-title-color: #F9F9F9;
+  --dark-title-color: #EAEEF2;
+  --light-text-color: #2D2D2D;
+  --light-subtitle-color: #737373;
+  --dark-subtitle-color: #B8B8B8;
+  --background-color: #201017;
+  --dark-background-color: #412238;
+  --light-background-color: #2D2D2D;
+  --extralight-background-color: #2b1a27;
+  --text-color: #F9F9F9;
+  --border-color: rgba(235, 235, 235, 0.6);
+
+  --section-color-lighter: rgba(255, 255, 255, 0.2);
+  --section-color-tonal: rgba(255, 255, 255, 0.1);
+
+  --hover-color: #46A6F4;
+  --disabled-element-color: #8EC2F2;
+  --muted-color: #BDBDBD;
+  --success-color: #2DC071;
+  --alert-color: #F48242;
+  --danger-color: #E74040;
+  // --white-color: #ffffff;
+
+}
+
+
+
 
 // Typography Variables
 $text-h1: (
@@ -147,7 +148,7 @@ $text-body-2: (
 $text-button: (
   font-size: 0.875rem,
   font-weight: bold,
-  color: $primary-color-1
+  color: var(--primary-color-1)
 );
 
 $text-caption: (

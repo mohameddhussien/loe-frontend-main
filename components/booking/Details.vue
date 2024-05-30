@@ -1,6 +1,6 @@
 <template>
     <base-dialog scrollable width="10000" :show-footer="false" v-model="opened" @close="emits('cancel')"
-        transition="dialog-bottom-transition" fullscreen color="primary-2">
+        transition="dialog-bottom-transition" fullscreen color="background">
         <template #title>
             <v-toolbar class="border-b" color="rgba(255,255,255,0.4)">
                 <template #prepend>

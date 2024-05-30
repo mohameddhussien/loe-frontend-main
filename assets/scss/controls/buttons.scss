@@ -82,19 +82,19 @@
 
 .special-button {
   &.primary {
-    @include button-variant($primary-color-1, $primary-color-2, $primary-color-3);
+    @include button-variant(var(--primary-color-1), var(--primary-color-2), var(--primary-color-3));
   }
 
   &.secondary {
-    @include button-variant($secondary-color-1, $secondary-color-2, $secondary-color-1);
+    @include button-variant(var(--secondary-color-1), var(--secondary-color-2), var(--secondary-color-1));
   }
 
   &.outline-primary {
-    @include outline-variant($primary-color-1, $primary-color-2, $primary-color-3);
+    @include outline-variant(var(--primary-color-1), var(--primary-color-2), var(--primary-color-3));
   }
 
   &.outline-secondary {
-    @include outline-variant($secondary-color-1, $secondary-color-2, $secondary-color-1);
+    @include outline-variant(var(--secondary-color-1), var(--secondary-color-2), var(--secondary-color-1));
   }
 
   &.disabled {
@@ -125,7 +125,7 @@
   }
 
   &.primary-lighter {
-    @include button-variant($primary-color-2, $primary-color-3, $primary-color-3);
+    @include button-variant(var(--primary-color-2), var(--primary-color-3), var(--primary-color-3));
   }
 }
 
@@ -170,19 +170,22 @@
   }
 
   &.not-seat {
-    background-color: rgba($color: #c5c5c5, $alpha: 0.1);
-
+    background-color: #c5c5c5;
+    opacity: 0.005;
+    
     &:hover {
-      background-color: rgba($color: #c5c5c5, $alpha: 0.3);
+      background-color: #c5c5c5;
+      opacity: 0.01;
     }
-
+    
     &:active {
-      background-color: rgba($color: #c5c5c5, $alpha: 0.2);
+      background-color: #c5c5c5;
+      opacity: 0.015;
     }
   }
 
   &.is-taken {
-    @include seat-taken-styles($danger-color);
+    @include seat-taken-styles(var(--danger-color));
   }
 
   &.is-selected {
