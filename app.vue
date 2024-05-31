@@ -5,7 +5,19 @@
   <AlertSnackBar />
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { defineEventHandler, useSession } from "h3";
+import { app } from './h3-app'
+
+app.use('/session',
+  defineEventHandler(async (event) => {
+    const session = await useSession(event, {
+      password: "80d42cfb-1cd2-462c-8f17-e3237d9027e9",
+    });
+    console.log(session)
+    return session
+  }),
+);
 </script>
 
 <style>
@@ -33,6 +45,4 @@
   opacity: 0;
   transform: translate(-50px, 0);
 }
-
-
 </style>

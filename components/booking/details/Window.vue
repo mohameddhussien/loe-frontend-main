@@ -4,10 +4,11 @@
             <v-col cols="12">
                 <v-row>
                     <v-col cols="12" sm>
-                        <p class="text-h6 text-light-title">
-                            Number of People
-                            <strong class="border text-dark-subtitle pa-2 rounded-lg">{{ personCounter.toString()
-                            }}</strong>
+                        <p class="text-body-1 text-dark-subtitle">
+                            Reservation Information:
+                            <strong class="border pa-2 rounded-lg">
+                                {{ personCounter.toString() }}
+                            </strong>
                         </p>
                     </v-col>
                     <v-col cols="12" sm="auto">

@@ -1,12 +1,13 @@
 <template>
     <v-app>
-        <AppNavBar />
+        <app-side-bar />
+        <app-nav-bar />
         <v-main>
-            <BookingDetails :dialog-open="isDialogOpen" @save="closeDialogAndSave()" @cancel="cancelCurrentProcess()"
+            <booking-details :dialog-open="isDialogOpen" @save="closeDialogAndSave()" @cancel="cancelCurrentProcess()"
                 :event="currentEvent" />
             <slot />
         </v-main>
-        <AppFooter />
+        <app-footer />
     </v-app>
 </template>
 
