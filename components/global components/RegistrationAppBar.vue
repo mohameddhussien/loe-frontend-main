@@ -5,15 +5,16 @@
                 <v-container>
                     <v-row v-bind="props" justify="center" no-gutters align="center">
                         <v-slide-x-reverse-transition>
-                            <button @click="navigateTo('/')" v-if="isHovering" class="pa-2 ma-2">
-                                <v-icon icon="mdi-home-outline" />
-                            </button>
+                            <v-btn rounded="circle" icon="mdi-home-outline" @click="navigateTo('/')" v-if="isHovering" class="mx-6" />
                         </v-slide-x-reverse-transition>
-                        <v-img src="/LOEClipped.png" class="special-img" max-width="50" cover />
+                        <v-avatar @click="toggleTheme" image="/Ladies_only_events.jpg" :class="{
+                            'avatar': true,
+                            'dark-theme': isDark,
+                            'light-theme': !isDark
+                        }" />
+                        <!-- <v-img src="/LOEClipped.png" class="special-img" max-width="50" cover /> -->
                         <v-slide-x-transition>
-                            <button @click="navigateTo('/about')" v-if="isHovering" class="pa-2 ma-2">
-                                <v-icon icon="mdi-account-outline" />
-                            </button>
+                            <v-btn rounded="circle" icon="mdi-information-outline" @click="navigateTo('/about')" v-if="isHovering" class="mx-6" />
                         </v-slide-x-transition>
                     </v-row>
                 </v-container>
@@ -23,16 +24,16 @@
 </template>
 
 <script setup>
-
+const { toggleTheme, isDark } = useThemeState()
 </script>
 
 <style lang="scss" scoped>
-.special-img {
-    transition: filter 0.3s, transform 0.3s;
+// .special-img {
+//     transition: filter 0.3s, transform 0.3s;
 
-    &:hover {
-        transform: scale(1.05);
-        filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
-    }
-}
+//     &:hover {
+//         transform: scale(1.05);
+//         filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
+//     }
+// }
 </style>

@@ -4,14 +4,11 @@
             <v-btn icon="mdi-menu" @click="toggleSideBar" />
         </v-app-bar-nav-icon>
         <v-app-bar-title>
-            <v-avatar image="/Ladies_only_events.jpg" />
-            <!-- <img @click="toggleTheme" src="/Ladies_only_events.jpg" :class="{
-                'theme-changer': true,
-                'theme-changer-light': !theme.global.current.value.dark,
-                'theme-changer-dark': theme.global.current.value.dark
-            }"> -->
-            <!-- <v-img src="/loelogo.png" :min-width="150" :max-width="200" :max-height="60" class="ma-2 d-none d-md-flex" aspect-ratio="2/1"
-            cover /> -->
+            <v-avatar image="/Ladies_only_events.jpg" :class="{
+                'avatar': true,
+                'dark-theme': isDark,
+                'light-theme': !isDark
+            }" />
         </v-app-bar-title>
         <template #append>
             <v-container fluid>
@@ -34,7 +31,7 @@
 
 <script lang="ts" setup>
 import { logout, hasToken as authenticated } from '@/composables/store/session';
-const { toggleTheme } = useThemeState()
+const { toggleTheme, isDark } = useThemeState()
 const { toggleSideBar } = useSideBar()
 const openSearch = ref(false)
 

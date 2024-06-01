@@ -1,5 +1,5 @@
 import { Adult, Child, type ExpandPerson, type ExpandAdult } from '@/classes/person';
-
+type Variant = 'primary' | 'secondary' | 'outline-primary' | 'outline-secondary' | 'white' | 'outline-white' | 'black' | 'outline-black' | 'disabled' | 'primary-lighter'
 type SelectedPerson = {
     adultIndex?: number;
     childIndex?: number;
@@ -86,15 +86,19 @@ const useBooking = () => {
     const disabledRemoveAdult = computed(() => personCounter.value <= 1);
     const disabledAddAdult = computed(() => personCounter.value >= 10);
 
-    const addButtonClasses = computed(() => ({
-        'primary-lighter': !disabledAddAdult.value,
-        'disabled': disabledAddAdult.value
-    }));
+    const addButtonClasses = (variant: Variant) => {
+        return {
+            [variant]: !disabledAddAdult.value,
+            'disabled': disabledAddAdult.value
+        }
+    };
 
-    const removeButtonClasses = computed(() => ({
-        'outline-primary': !disabledRemoveAdult.value,
-        'disabled': disabledRemoveAdult.value
-    }));
+    const removeButtonClasses = (variant: Variant) => {
+        return {
+            [variant]: !disabledRemoveAdult.value,
+            'disabled': disabledRemoveAdult.value
+        }
+    };
 
     const toggleExpandAdult = (index: number) => {
         expandPerson[index].adult = !expandPerson[index].adult;
@@ -172,4 +176,5 @@ export {
     useBooking,
     expandPerson,
     selectedPerson
-}
+};
+export type { Variant };

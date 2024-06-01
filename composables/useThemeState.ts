@@ -1,14 +1,17 @@
 import { useTheme } from "vuetify";
 
 const useThemeState = () => {
-    const { global } = useTheme()
+    const { global, current } = useTheme()
+    const isDark = computed(() => current.value.dark)
 
-    function toggleTheme() {
+    const toggleTheme = () => {
         global.name.value = global.current.value.dark ? 'light' : 'dark'
         document.body.classList.toggle('dark-theme');
     }
+    
     return {
-        toggleTheme
+        toggleTheme,
+        isDark
     }
 }
 

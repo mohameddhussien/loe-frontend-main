@@ -18,16 +18,18 @@
                                 :index="adultIndex" />
                         </v-col>
                         <v-col cols="8" sm="auto">
-                            <button @click="addChildOfAdult(adultIndex)" class="special-button" :class="addButtonClasses"
-                                :disabled="disabledAddAdult" style="width: 100%; height: 48px;">
+                            <button @click="addChildOfAdult(adultIndex)" class="special-button"
+                                :class="addButtonClasses('primary-lighter')" :disabled="disabledAddAdult"
+                                style="width: 100%; height: 48px;">
                                 <v-icon icon="mdi-plus" />
                                 Add Child
                             </button>
                         </v-col>
                         <v-col cols="12" sm>
                             <v-expand-transition>
-                                <v-text-field density="comfortable" v-if="!expandPerson[adultIndex].adult" rounded="lg"
-                                    hide-details v-model="adult.name" label="Name" />
+                                <v-text-field variant="solo-filled" density="comfortable"
+                                    v-if="!expandPerson[adultIndex].adult" rounded="lg" hide-details v-model="adult.name"
+                                    label="Name" />
                                 <h1 v-else>{{ adult.name }}</h1>
                             </v-expand-transition>
                         </v-col>
@@ -107,7 +109,8 @@
                                     <v-col cols="12" class="section lighter rounded-lg" :class="{
                                         'fade-in-border secondary': selectedPerson.childIndex === childIndex
                                     }">
-                                        <expand-sections v-model:expanded="expandPerson[adultIndex].children[childIndex].expand">
+                                        <expand-sections
+                                            v-model:expanded="expandPerson[adultIndex].children[childIndex].expand">
                                             <template #summary>
                                                 <v-row align="center">
                                                     <v-col cols="auto">
@@ -136,7 +139,7 @@
                                                     </v-col>
                                                     <v-col cols="12" sm>
                                                         <v-expand-transition>
-                                                            <v-text-field density="comfortable"
+                                                            <v-text-field variant="solo-filled" density="comfortable"
                                                                 v-if="!expandPerson[adultIndex].children[childIndex].expand"
                                                                 rounded="lg" hide-details v-model="child.name"
                                                                 label="Child Name" />
@@ -227,6 +230,18 @@ watch(() => selectedPerson.value, ({ adultIndex, childIndex }) => {
 </script>
 
 <style lang="scss" scoped>
+@import '../../../assets/scss/utils/variables.scss';
+
+:deep(.v-field--variant-solo-filled) {
+    box-shadow: none;
+    outline: 1px solid var(--border-color);
+    transition: $transition;
+
+    &:focus-within {
+        outline: 2px solid var(--primary-color-1);
+    }
+}
+
 .v-btn {
     margin-right: 0;
 }

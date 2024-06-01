@@ -7,9 +7,6 @@
     </v-app>
 </template>
 <script setup>
-import { useTheme } from 'vuetify/lib/framework.mjs';
-
-useTheme().global.name.value = 'light'
 </script>
 
 <style scoped>

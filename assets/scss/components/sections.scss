@@ -18,18 +18,31 @@
 }
 
 .section {
+    border-radius: $border-radius-lg;
+    transition: $transition;
+    outline: 0px solid;
+
     &.lighter {
         background-color: var(--section-color-lighter);
         outline: 1px solid var(--border-color);
-        // box-shadow: $box-shadow-lighter;
     }
 
     &.primary {
-        // background-color: rgba(255, 221, 250, 0.4);
+        background-color: var(--primary-color-2);
     }
+
+    &.outline-grey {
+        outline: 2px solid var(--border-color);
+    }
+
     &.tonal {
         background-color: var(--section-color-tonal);
-        outline: 1px solid var(--border-color);
+
+        &:focus-visible,
+        &:focus,
+        &:focus-within {
+            outline: 2px solid var(--border-color);
+        }
     }
 }
 

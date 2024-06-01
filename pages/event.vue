@@ -35,14 +35,14 @@
                             <v-col cols="12">
                                 <v-row>
                                     <v-col cols="auto">
-                                        <button @click="openBookingDetails" class="white-button ga-2">
+                                        <button @click="openBookingDetails" class="special-button primary" style="height: 43px;">
                                             <v-icon icon="mdi-seat-outline" />
                                             Book Trip
                                         </button>
                                     </v-col>
                                     <v-col cols="auto">
                                         <v-row no-gutters class="ga-2">
-                                            <increment-decrement-person />
+                                            <increment-decrement-person add-button-variant="outline-primary" remove-button-variant="outline-secondary" />
                                         </v-row>
                                     </v-col>
                                 </v-row>

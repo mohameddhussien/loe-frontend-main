@@ -1,8 +1,8 @@
 <template>
-    <v-footer class="bg-primary-2">
-        <v-row justify="center" no-gutters>
-            <v-btn v-for="link in links" :key="link" color="white" variant="text" class="mx-2" rounded="xl">
-                {{ link }}
+    <v-footer elevation="20" class="bg-primary-3">
+        <v-row justify="center" class="ga-2" no-gutters>
+            <v-btn v-for="link in links" :key="link" :to="link.to" variant="text" rounded="pill">
+                {{ link.label }}
             </v-btn>
             <v-col class="text-center mt-4" cols="12">
                 {{ new Date().getFullYear() }} — <strong>Ladies only events</strong>
@@ -13,10 +13,8 @@
 
 <script setup>
 const links = [
-    'Home',
-    'About Us',
-    'Team',
-    'Contact Us',
+    { label: 'Home', to: '/' },
+    { label: 'About Us', to: '/about' },
 ]
 </script>
 

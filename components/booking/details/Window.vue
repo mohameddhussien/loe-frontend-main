@@ -12,7 +12,7 @@
                         </p>
                     </v-col>
                     <v-col cols="12" sm="auto">
-                        <increment-decrement-person no-gutters justify="end" justify-sm="start" class="ga-2" />
+                        <increment-decrement-person no-gutters justify="end" justify-sm="start" class="ga-2" add-button-variant="outline-primary" remove-button-variant="outline-white" />
                     </v-col>
                 </v-row>
             </v-col>
