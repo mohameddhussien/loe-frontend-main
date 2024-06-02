@@ -1,7 +1,6 @@
 <template>
-    <v-row v-for="(adult, adultIndex) in Adults" :key="`adult-${adultIndex}`" :id="`adult-${adultIndex}`">
-        <v-col cols="12" class="section tonal rounded-lg"
-            :class="{ 'fade-in-border primary': selectedPerson.adultIndex === adultIndex }">
+    <booking-details-content-grid :people="Adults" type="adult" content-variant="tonal" scroll-variant="primary">
+        <template #default="{ person: adult, index: adultIndex }">
             <expand-sections v-model:expanded="expandPerson[adultIndex].adult">
                 <template #summary>
                     <v-row align="center">
@@ -38,77 +37,30 @@
                 <template #default>
                     <v-col cols="12">
                         <!-- Entertainer Information -->
-                        <v-row>
-                            <v-col cols="12" md="2">
-                                Entertainer Information
-                            </v-col>
-                            <v-col cols="12" md="10">
-                                <v-row>
-                                    <v-col cols="12" sm="6">
-                                        <field v-model="adult.name" label="Name" />
-                                    </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <field v-model="adult.age" label="Age" />
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
+                        <booking-details-entertainer-section title="Entertainer Information" :person="adult"
+                            :rules="[required, age, adultAge(18, 65)]" />
                     </v-col>
                     <v-col cols="12">
                         <!-- Contact Information -->
-                        <v-row>
-                            <v-col cols="12" md="2">
-                                Contact Information
-                            </v-col>
-                            <v-col cols="12" md="10">
-                                <v-row>
-                                    <v-col cols="12">
-                                        <field v-model="adult.email" label="Email" type="email" hint="Optional" />
-                                    </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <field v-model="adult.contact_mandatory" label="Contact 1" type="phone_number" />
-                                    </v-col>
-                                    <v-col cols="12" sm="6">
-                                        <field v-model="adult.contact_optional" label="Contact 2" hint="Optional"
-                                            type="phone_number" />
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
+                        <booking-details-contact-section :adult="adult" />
                     </v-col>
                     <v-col cols="12">
                         <!-- Options Available -->
-                        <v-row>
-                            <v-col cols="12" md="2">
-                                Options Available
-                            </v-col>
-                            <v-col cols="12" md="10">
-                                <v-row>
-                                    <v-col cols="4" sm="4">
-                                        <v-checkbox hide-details v-model="adult.bus" label="Bus" />
-                                    </v-col>
-                                    <v-col cols="4" sm="4">
-                                        <v-checkbox hide-details v-model="adult.pool" label="Pool" />
-                                    </v-col>
-                                    <v-col cols="4" sm="4">
-                                        <v-checkbox hide-details v-model="adult.food" label="Food" />
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
+                        <booking-details-options-section title="Options Available" :person="adult">
+                            <template #extra-fields>
+                                <v-col cols="4" sm="4">
+                                    <v-checkbox hide-details v-model="adult.bus" label="Bus" />
+                                </v-col>
+                            </template>
+                        </booking-details-options-section>
                     </v-col>
                     <!-- Children Section -->
-                    <v-col cols="12" v-if="adult.children.length > 0 && adult.children.filter(c => !!c.name)">
-                        <v-row>
-                            <v-col cols="12" md="2">
-                                <p>Children of {{ adult.name.split(' ')[0] }}</p>
-                            </v-col>
-                            <v-col cols="12" md="10">
-                                <v-row v-for="(child, childIndex) in adult.children" :key="`child-${childIndex}`"
-                                    :id="`child-${childIndex}`">
-                                    <v-col cols="12" class="section lighter rounded-lg" :class="{
-                                        'fade-in-border secondary': selectedPerson.childIndex === childIndex
-                                    }">
+                    <v-col cols="12" v-if="adult.children.length > 0 && adult.children.filter((c: any) => !!c.name)">
+                        <booking-details-section-grid :title="`Children of ${adult.name.split(' ')[0]}`">
+                            <template #content>
+                                <booking-details-content-grid :people="adult.children" type="child"
+                                    content-variant="lighter" scroll-variant="secondary">
+                                    <template #default="{ person: child, index: childIndex }">
                                         <expand-sections
                                             v-model:expanded="expandPerson[adultIndex].children[childIndex].expand">
                                             <template #summary>
@@ -150,56 +102,21 @@
                                             </template>
                                             <template #default>
                                                 <!-- Child Information -->
-                                                <v-row>
-                                                    <v-col cols="12" md="2">
-                                                        Child Information
-                                                    </v-col>
-                                                    <v-col cols="12" md="10">
-                                                        <v-row>
-                                                            <v-col cols="12" sm="6">
-                                                                <field v-model="child.name" label="Child Name" />
-                                                            </v-col>
-                                                            <v-col cols="12" sm="6">
-                                                                <field v-model="child.age" label="Age" />
-                                                            </v-col>
-                                                        </v-row>
-                                                    </v-col>
-                                                </v-row>
+                                                <booking-details-entertainer-section title="Child Information"
+                                                    :person="child" :rules="[required, age, childAge(1, 8)]" />
                                                 <!-- Child Options -->
-                                                <v-row>
-                                                    <v-col cols="12" md="2">
-                                                        Child Options
-                                                    </v-col>
-                                                    <v-col cols="12" md="10">
-                                                        <v-row>
-                                                            <v-col cols="6">
-                                                                <v-checkbox hide-details v-model="child.food"
-                                                                    label="Food" />
-                                                            </v-col>
-                                                            <v-col cols="6">
-                                                                <v-checkbox hide-details v-model="child.pool"
-                                                                    label="Pool" />
-                                                            </v-col>
-                                                        </v-row>
-                                                    </v-col>
-                                                </v-row>
+                                                <booking-details-options-section title="Child Options" :person="child" />
                                             </template>
                                         </expand-sections>
-                                    </v-col>
-                                    <v-col cols="12" v-if="childIndex != adult.children.length - 1">
-                                        <v-divider />
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
+                                    </template>
+                                </booking-details-content-grid>
+                            </template>
+                        </booking-details-section-grid>
                     </v-col>
                 </template>
             </expand-sections>
-        </v-col>
-        <v-col cols="12" v-if="adultIndex != Adults.length - 1">
-            <v-divider />
-        </v-col>
-    </v-row>
+        </template>
+    </booking-details-content-grid>
 </template>
 
 <script lang="ts" setup>
@@ -211,6 +128,7 @@ const {
     toggleExpandChildOfAdult,
     toggleExpandAdult,
 } = useBooking()
+const { adultAge, childAge, required, age } = useRules()
 
 const listItemClasses = (): Record<string, boolean> => {
     return {
@@ -240,9 +158,5 @@ watch(() => selectedPerson.value, ({ adultIndex, childIndex }) => {
     &:focus-within {
         outline: 2px solid var(--primary-color-1);
     }
-}
-
-.v-btn {
-    margin-right: 0;
 }
 </style>

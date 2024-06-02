@@ -24,8 +24,7 @@
                                 <whatsapp :event="event" />
                             </v-col>
                             <v-col cols="auto">
-                                <button class="facebook-button" @click="redirectToFacebook"
-                                    style="width: 50px;">
+                                <button class="facebook-button" @click="redirectToFacebook" style="width: 50px;">
                                     <v-icon icon="mdi-facebook" />
                                 </button>
                             </v-col>
@@ -35,14 +34,16 @@
                             <v-col cols="12">
                                 <v-row>
                                     <v-col cols="auto">
-                                        <button @click="openBookingDetails" class="special-button primary" style="height: 43px;">
+                                        <button @click="openBookingDetails" class="special-button primary"
+                                            style="height: 43px;">
                                             <v-icon icon="mdi-seat-outline" />
                                             Book Trip
                                         </button>
                                     </v-col>
                                     <v-col cols="auto">
                                         <v-row no-gutters class="ga-2">
-                                            <increment-decrement-person add-button-variant="outline-primary" remove-button-variant="outline-secondary" />
+                                            <increment-decrement-person add-button-variant="outline-primary"
+                                                remove-button-variant="outline-secondary" />
                                         </v-row>
                                     </v-col>
                                 </v-row>
@@ -56,21 +57,21 @@
 </template>
 
 <script lang="ts" setup>
-import { useEvents } from "~/composables/store/events";
+import { useEvents } from "~/composables/useEvents";
 import { openDialog } from "~/composables/dialogActions";
 import { hasToken as authenticated } from "~/composables/store/session";
 import { showSnackbar } from "~/composables/snackBarActions";
 
 const { query } = useRoute();
 const { getEventByID } = useEvents();
-const { data: event } = await getEventByID(query.key as string);
+const { data: event } = await getEventByID(query.key as string)
 
 const redirectToFacebook = () => {
-  window.location.href = 'https://www.facebook.com/EventsforLadies/';
+    window.location.href = 'https://www.facebook.com/EventsforLadies/';
 };
 
 useHead({
-    title: event.value?.EVENT_NAME,
+    title: event?.EVENT_NAME,
 });
 definePageMeta({
     middleware: ["event-not-found"],
@@ -78,7 +79,7 @@ definePageMeta({
 
 
 const openBookingDetails = () => {
-    openDialog(event.value);
+    openDialog(event);
     // if (authenticated.value)
     //     openDialog(event?.value)
     // else {

@@ -33,7 +33,7 @@
                                 <!-- Email -->
                                 <v-col cols="12" md="6">
                                     <field v-model="registrationForm.email" prependInnerIcon="mdi-mailbox-open-up-outline"
-                                        label="E-mail" :rules="[required, email]" />
+                                        label="E-mail" :rules="[required, email(false)]" />
                                 </v-col>
                                 <!-- Password -->
                                 <v-col cols="12" md="6">
@@ -87,7 +87,7 @@
                                         </v-col>
                                         <v-col>
                                             <field v-model="registrationForm.phone_number" prependInnerIcon="mdi-cellphone"
-                                                label="Phone Number" hint="Example: 0100 123 4567" :rules="[phone]">
+                                                label="Phone Number" hint="Example: 0100 123 4567" :rules="[phone(false)]">
                                             </field>
                                         </v-col>
                                     </v-row>
@@ -132,10 +132,10 @@
     </registration-card>
 </template>
 
-<script setup>
-import { useEvents } from '@/composables/store/events'
+<script lang="ts" setup>
+import { useEvents } from '@/composables/useEvents'
 import { register, loading } from '@/composables/store/session'
-
+const { getCountryCodes } = useEvents()
 
 const myForm = ref()
 const { required, email, minLength, hasNumber, hasSpecialChar, hasUpperLowerCase, maxLength, phone } = useRules()

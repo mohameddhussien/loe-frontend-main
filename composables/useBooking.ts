@@ -18,14 +18,15 @@ const expandPerson = reactive<ExpandPerson>(
 );
 
 const useBooking = () => {
+    const limitPersonCount = 30;
     const addAdult = (): void => {
-        if (personCounter.value < 10) {
+        if (personCounter.value < limitPersonCount) {
             expandPerson?.push({ ...initializeExpand });
             Adults.push(new Adult());
             personCounter.value++;
             return
         }
-        console.log("Cannot add more than 10 people.");
+        console.log("Cannot add more than limitPersonCount people.");
     };
 
     const removeLastAdult = (): void => {
@@ -63,14 +64,14 @@ const useBooking = () => {
     };
 
     const addChildOfAdult = (adultIndex: number): void => {
-        if (personCounter.value < 10) {
+        if (personCounter.value < limitPersonCount) {
             expandPerson?.push({ ...initializeExpand });
             expandPerson[adultIndex].children.push({ expand: false })
             Adults[adultIndex].children.push(new Child());
             personCounter.value++;
             return
         }
-        console.log("Cannot add more than 10 people.");
+        console.log("Cannot add more than limitPersonCount people.");
     };
 
     const removeChildOfAdult = (adultIndex: number, childIndex: number): void => {
@@ -84,7 +85,7 @@ const useBooking = () => {
     };
 
     const disabledRemoveAdult = computed(() => personCounter.value <= 1);
-    const disabledAddAdult = computed(() => personCounter.value >= 10);
+    const disabledAddAdult = computed(() => personCounter.value >= limitPersonCount);
 
     const addButtonClasses = (variant: Variant) => {
         return {
@@ -108,11 +109,16 @@ const useBooking = () => {
     };
 
     const scrollToPerson = (adult_index?: number, child_index?: number) => {
-        if (adult_index !== undefined)
-            scrollToAdult(adult_index)
+        if (adult_index !== undefined) {
+            scrollToAdult(adult_index);
 
-        if (child_index !== undefined)
-            scrollToChildOfAdult(child_index)
+            if (child_index !== undefined) {
+                const id = setTimeout(() => {
+                    scrollToChildOfAdult(child_index)
+                    clearTimeout(id)
+                }, 500)
+            }
+        }
     };
 
     const scrollToAdult = (adult_index: number) => {

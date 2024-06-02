@@ -16,7 +16,8 @@
                 style="border-radius: 8px;">
                 <v-carousel-item v-for="(image) in event.IMAGES" :src="image" cover />
               </v-carousel>
-              <button @click="goToDetails(event)" class="special-button outline-primary w-100">See event details</button>
+              <button @click="goToDetails(event.EVENT_KEY)" class="special-button outline-primary w-100">See event
+                details</button>
             </v-card-text>
           </v-card>
         </v-row>
@@ -57,33 +58,31 @@
   </v-container>
 </template>
 
-<script setup>
-import { useEvents } from '@/composables/store/events'
+<script lang="ts" setup>
+import { useEvents } from '@/composables/useEvents'
 definePageMeta({
-  // set custom layout
   layout: 'default'
 })
 useHead({
   title: 'Ladies only events',
 })
-const { getAllEvents } = useEvents()
-const { data: events } = await getAllEvents();
+const { initializeStates } = useEvents()
+await initializeStates()
 
-const goToDetails = (event) => {
-  console.log(event)
+const goToDetails = (event_key: string) => {
   navigateTo({
     path: '/event',
     query: {
-      key: event.EVENT_KEY
+      key: event_key
     }
   })
 }
 
-const justAnnouncedEvents = ref(events.value.filter(event => {
+const justAnnouncedEvents = computed(() => events.value.filter(event => {
   const status = event.STATUS.toString().toLowerCase();
   return status === 'just announced!';
 }))
-const commingSoonEvents = ref(events.value.filter(event => {
+const commingSoonEvents = computed(() => events.value.filter(event => {
   const status = event.STATUS.toString().toLowerCase();
   return status === 'coming soon!';
 }))

@@ -10,7 +10,7 @@
                         <!-- Username -->
                         <v-col cols="12">
                             <field v-model="forgotPassForm.email" prependInnerIcon="mdi-account-box-outline" label="Email"
-                                type="email" :rules="[required, email]" />
+                                type="email" :rules="[required, email(false)]" />
                         </v-col>
                         <v-col cols="12" class="d-flex justify-center">
                             <button type="submit" class="special-button primary w-25"

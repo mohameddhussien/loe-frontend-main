@@ -4,7 +4,7 @@
             <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-for="(event, key) in events" :key="key">
                 <v-row justify="center" no-gutters align="center">
                     <!-- <v-img style="position: absolute; z-index: 1; bottom: -2px;"
-                    v-if="statusMappings.some(mapping => event.STATUS in mapping)" :src="getImageUrl(event.STATUS)"
+                    v-if="statusMappings.some((mapping: any) => event.STATUS in mapping)" :src="getImageUrl(event.STATUS)"
                     aspect-ratio="2/1" width="100"></v-img> -->
                     <v-card flat color="transparent">
                         <v-card-text>
@@ -23,10 +23,12 @@
                                 <span>{{ event.STATUS }}</span>
                             </v-chip>
                             <v-btn-group density="comfortable" class="w-100" variant="outlined" divided>
-                                <v-btn :rounded="false" class="w-50" :disabled="statusMappings.some(mapping => event.STATUS in mapping)"
+                                <v-btn :rounded="false" class="w-50"
+                                    :disabled="statusMappings.some((mapping: any) => event.STATUS in mapping)"
                                     :to="{ path: `/event`, query: { key: event.EVENT_KEY } }"
                                     prepend-icon="mdi-book-outline">See details!</v-btn>
-                                <v-btn :rounded="false" class="w-50" :disabled="statusMappings.some(mapping => event.STATUS in mapping)"
+                                <v-btn :rounded="false" class="w-50"
+                                    :disabled="statusMappings.some((mapping: any) => event.STATUS in mapping)"
                                     @click="auth(event)" prepend-icon="mdi-seat-outline">Book</v-btn>
                             </v-btn-group>
                         </v-card-text>
@@ -37,14 +39,15 @@
     </v-container>
 </template>
 
-<script setup>
-import { useEvents } from '~/composables/store/events'
+<script lang="ts" setup>
+import { useEvents } from '~/composables/useEvents'
 import { hasToken as authenticated } from '~/composables/store/session'
 import { openDialog } from '~/composables/dialogActions';
+import type { LOEEvent } from '~/classes/Event';
 
-const { getAllEvents } = useEvents()
-const { data: events } = await getAllEvents();
-const remainingDays = (event) => {
+const { initializeStates } = useEvents()
+await initializeStates()
+const remainingDays = (event: LOEEvent) => {
     const eventDate = new Date(event.EVENT_DATE);
     const currentDate = new Date();
 
@@ -53,13 +56,13 @@ const remainingDays = (event) => {
 
     return remainingDays > 0 ? remainingDays + 'DAYS LEFT!' : '';
 }
-const statusMappings = ref([{ 'Sold Out!': 'sold_out.png' }, { 'Coming Soon!': 'coming_soon.png' }])
+const statusMappings = ref<any>([{ 'Sold Out!': 'sold_out.png' }, { 'Coming Soon!': 'coming_soon.png' }])
 
-const getImageUrl = (status) => {
-    const mapping = statusMappings.value.find(mapping => status in mapping);
+const getImageUrl = (status: any) => {
+    const mapping = statusMappings.value.find((mapping: any) => status in mapping);
     return mapping ? mapping[status] : null;
 };
-const auth = (event) => {
+const auth = (event: LOEEvent) => {
     openDialog(event)
     // console.log(event)
     // if (authenticated.value)
