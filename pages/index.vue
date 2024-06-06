@@ -1,65 +1,16 @@
 
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col cols="12">
-        <v-row justify="center" no-gutters>
-          <h1>Just Announced!</h1>
-        </v-row>
-      </v-col>
-      <v-col cols="12" v-for="(event, key) in justAnnouncedEvents" :key="key">
-        <v-row justify="center" no-gutters>
-          <v-card min-height="300" variant="text" style="width: 100%; max-width: 450px; min-width: 300px;">
-            <v-card-text class="d-flex flex-column ga-4">
-              <p class="text-center">{{ event.EVENT_NAME }}</p>
-              <v-carousel class="elevation-5" cycle hide-delimiter-background :show-arrows="false" :touch="true"
-                style="border-radius: 8px;">
-                <v-carousel-item v-for="(image) in event.IMAGES" :src="image" cover />
-              </v-carousel>
-              <button @click="goToDetails(event.EVENT_KEY)" class="special-button outline-primary w-100">See event
-                details</button>
-            </v-card-text>
-          </v-card>
-        </v-row>
-      </v-col>
-      <v-col cols="12" class="bg-primary-2 rounded">
-        <v-row>
-          <v-col cols="12">
-            <v-row justify="center" no-gutters>
-              <h1>Comming Soon!</h1>
-            </v-row>
-          </v-col>
-          <v-col cols="12">
-            <v-carousel delimiter-icon="mdi-circle-outline" :touch="true" style="height: 600px;"
-              hide-delimiter-background>
-              <template #next="{ props }">
-                <v-btn variant="plain" @click="props.onClick()" class="hover:scale-125 hover:-translate-x-2"
-                  icon="mdi-skip-next-outline" />
-              </template>
-              <template #prev="{ props }">
-                <v-btn variant="plain" @click="props.onClick()" class="hover:scale-125 hover:translate-x-2"
-                  icon="mdi-skip-previous-outline" />
-              </template>
-              <v-carousel-item v-for="event in commingSoonEvents">
-                <v-card style="width: 50%; max-width: 500px; min-width: 300px;" class="ma-2 mx-auto pa-4 text-center"
-                  variant="text">
-                  <p class="text-center">{{ event.EVENT_NAME }}</p>
-                  <v-carousel class="elevation-5" cycle hide-delimiters :show-arrows="false" :touch="true"
-                    style="border-radius: 8px;">
-                    <v-carousel-item v-for="image in event.IMAGES" :src="image" cover />
-                  </v-carousel>
-                </v-card>
-              </v-carousel-item>
-            </v-carousel>
-          </v-col>
-        </v-row>
-      </v-col>
+    <v-row class="ga-2">
+      <just-announced class="mt-4" />
+      <coming-soon />
     </v-row>
   </v-container>
 </template>
 
 <script lang="ts" setup>
 import { useEvents } from '@/composables/useEvents'
+
 definePageMeta({
   layout: 'default'
 })
@@ -69,24 +20,20 @@ useHead({
 const { initializeStates } = useEvents()
 await initializeStates()
 
-const goToDetails = (event_key: string) => {
-  navigateTo({
-    path: '/event',
-    query: {
-      key: event_key
-    }
-  })
-}
 
-const justAnnouncedEvents = computed(() => events.value.filter(event => {
-  const status = event.STATUS.toString().toLowerCase();
-  return status === 'just announced!';
-}))
-const commingSoonEvents = computed(() => events.value.filter(event => {
-  const status = event.STATUS.toString().toLowerCase();
-  return status === 'coming soon!';
-}))
+const eventsThisWeek = computed(() => {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const weekStart = new Date(today.setDate(today.getDate() - dayOfWeek));
+  weekStart.setHours(0, 0, 0, 0);
+  const weekEnd = new Date(weekStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+  weekEnd.setHours(23, 59, 59, 999);
 
+  return events.value.filter(event => {
+    const eventStartDate = new Date(event.start_date ?? '');
+    return eventStartDate >= weekStart && eventStartDate < weekEnd;
+  });
+});
 </script>
 
 <style lang="scss" scoped></style>

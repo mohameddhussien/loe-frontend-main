@@ -4,21 +4,22 @@
             <v-col xl="3" xxl="4" lg="5" md="5" cols="12">
                 <v-carousel cycle hide-delimiter-background :show-arrows="false" :touch="true"
                     style="border-radius: 5px; height: 500px">
-                    <v-carousel-item v-for="image in event?.IMAGES" :src="image" cover />
+                    <v-carousel-item v-for="({ image_id, image_url }) in event?.images" :key="image_id" :src="image_url"
+                        cover />
                 </v-carousel>
             </v-col>
             <v-col>
                 <v-card variant="text">
                     <v-card-title>
-                        <h1>{{ event?.EVENT_NAME }}</h1>
+                        <h1>{{ event?.e_name }}</h1>
                     </v-card-title>
                     <v-card-subtitle>
-                        <span>{{ event?.PRICE }}EGP</span>
+                        <span>{{ event?.price }}EGP</span>
                     </v-card-subtitle>
                     <v-container fluid>
                         <v-row>
                             <v-col cols="12">
-                                <expand-text :content="event?.DESCRIPTION" />
+                                <expand-text :content="event?.description" />
                             </v-col>
                             <v-col cols="auto">
                                 <whatsapp :event="event" />
@@ -61,17 +62,23 @@ import { useEvents } from "~/composables/useEvents";
 import { openDialog } from "~/composables/dialogActions";
 import { hasToken as authenticated } from "~/composables/store/session";
 import { showSnackbar } from "~/composables/snackBarActions";
+import type { LOEEvent } from "~/classes/Event";
 
 const { query } = useRoute();
+const event = ref<LOEEvent>()
 const { getEventByID } = useEvents();
-const { data: event } = await getEventByID(query.key as string)
+
+getEventByID(query.key as string).then(({ data }) => {
+    event.value = data
+    console.log(event.value)
+})
 
 const redirectToFacebook = () => {
     window.location.href = 'https://www.facebook.com/EventsforLadies/';
 };
 
 useHead({
-    title: event?.EVENT_NAME,
+    title: event.value?.e_name,
 });
 definePageMeta({
     middleware: ["event-not-found"],

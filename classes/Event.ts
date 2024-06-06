@@ -1,21 +1,43 @@
-type Images = string[]
-type LOEEvent = {
-    CAPACITY: number;
-    CATEGORY: string;
-    DESCRIPTION: string;
-    EVENT_DATE: string;
-    EVENT_ID: number;
-    EVENT_KEY: string;
-    EVENT_NAME: string;
-    IMAGES: Images;
-    IS_PUBLISHED?: number;
-    LOCATION?: string;
-    ORGANIZER_ID: number;
-    PRICE?: number;
-    REGISTRATION_END_DATE?: string;
-    REGISTRATION_START_DATE?: string;
-    STATUS: string;
-};
-type LOEEvents = LOEEvent[];
+interface Image {
+    e_id: number;
+    image_id: number;
+    image_url: string;
+}
 
-export type { Images, LOEEvent, LOEEvents }
+class LOEEvent {
+    capacity?: number;
+    category?: string;
+    description?: string;
+    e_id?: number;
+    e_key?: string;
+    e_name?: string;
+    end_date?: string;
+    images?: Image[];
+    is_published?: number;
+    location?: string;
+    organizer_id?: number;
+    price?: string;
+    reg_end_date?: string;
+    reg_start_date?: string;
+    show_price?: boolean;
+    start_date?: string;
+    date_published?: string;
+
+    constructor(event: LOEEvent) {
+        Object.assign(this, event);
+    }
+
+    public isJustAnnounced(): boolean {
+        const datePublished = new Date(this.date_published ?? '');
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        return datePublished >= sevenDaysAgo;
+    }
+
+    public isComingSoon(): boolean {
+        return !this.start_date && !!this.is_published;
+    }
+}
+interface LOEEvents extends Array<LOEEvent> { }
+
+export { LOEEvent }
+export type { Image, LOEEvents };

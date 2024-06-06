@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       jsonData: true,
-      baseURL: 'http://192.168.1.61:5000/'
+      baseURL: 'http://192.168.1.134:5000/'
     },
   },
   ssr: false,
@@ -56,9 +56,8 @@ export default defineNuxtConfig({
   ],
   googleFonts: {
     families: {
-      'Rethink+Sans': {
-        ital: 1,
-        wght: [100, 200, 300, 400, 500, 600, 700, 800, 900]
+      "Nunito Sans": {
+        wght: [100, 200, 300, 400, 500, 600, 700, 800]
       }
     }
   },

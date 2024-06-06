@@ -29,7 +29,7 @@
                     </v-col>
                 </v-row>
                 <v-row no-gutters>
-                    <h1>Total: {{ event?.PRICE }}EGP</h1>
+                    <h1>Total: {{ event?.price }}EGP</h1>
                 </v-row>
                 <v-row>
                     <v-divider class="border-opacity-100" />

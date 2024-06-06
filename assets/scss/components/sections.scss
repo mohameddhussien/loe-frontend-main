@@ -44,6 +44,10 @@
             outline: 2px solid var(--border-color);
         }
     }
+
+    &.white {
+        background-color: rgba($color: $white-color, $alpha: 0.4);
+    }
 }
 
 

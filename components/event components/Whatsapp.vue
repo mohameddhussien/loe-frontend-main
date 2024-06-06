@@ -7,7 +7,7 @@
         </template>
         <v-list>
             <v-list-item v-for="organizer in organizers" prepend-icon="mdi-whatsapp" value="wp"
-                :href="`https://wa.me/${organizer.phone}?text=Tell+me+more+about+${event?.EVENT_NAME}+trip`">
+                :href="`https://wa.me/${organizer.phone}?text=Tell+me+more+about+${event?.e_name}+trip`">
                 <v-list-item-title>
                     <span>{{ organizer.name }}</span>
                 </v-list-item-title>

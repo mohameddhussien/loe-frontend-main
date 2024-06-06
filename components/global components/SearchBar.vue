@@ -27,7 +27,7 @@ import { useEvents } from '@/composables/useEvents'
 const { initializeStates } = useEvents()
 await initializeStates();
 
-const eventNames = computed(() => events.value?.map((event: any) => event.EVENT_NAME))
+const eventNames = computed(() => events.value?.map((event: any) => event.e_name))
 
 const emits = defineEmits(['close'])
 const props = defineProps({
