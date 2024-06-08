@@ -134,11 +134,12 @@
 
 <script lang="ts" setup>
 import { useEvents } from '@/composables/useEvents'
-import { register, loading } from '@/composables/store/session'
+
 const { getCountryCodes } = useEvents()
+const { required, email, minLength, hasNumber, hasSpecialChar, hasUpperLowerCase, maxLength, phone } = useRules()
+const { register, loading } = useRegistration()
 
 const myForm = ref()
-const { required, email, minLength, hasNumber, hasSpecialChar, hasUpperLowerCase, maxLength, phone } = useRules()
 
 definePageMeta({
     layout: 'registration',
@@ -149,16 +150,12 @@ useHead({
 const step = ref(1)
 // const menu = ref(false)
 
-const registrationForm = reactive({
+const registrationForm = reactive<RegistrationForm>({
     username: '',
     email: '',
     password: '',
     first_name: '',
     last_name: '',
-    gender: '',
-    address: '',
-    date_of_birth: null,
-    phone_number: ''
 })
 // const toggleBirthDateMenu = () => {
 //     menu.value = !menu.value
@@ -177,14 +174,14 @@ const handleSubmit = async () => {
         return
 
     const response = await register(registrationForm);
-    const responseKey = Object.keys(response.value)[0];
-    const responseValue = Object.values(response.value)[0];
-    if (responseKey === 'error') {
-        showSnackbar({ snackbarText: responseValue, color: 'error' })
-        return 0;
-    }
-    navigateTo('/login')
-    showSnackbar({ snackbarText: responseValue, color: 'success' })
+    // const responseKey = Object.keys(response.value)[0];
+    // const responseValue = Object.values(response.value)[0];
+    // if (responseKey === 'error') {
+    //     showSnackbar({ snackbarText: responseValue, color: 'error' })
+    //     return 0;
+    // }
+    // navigateTo('/login')
+    // showSnackbar({ snackbarText: responseValue, color: 'success' })
 }
 </script>
 

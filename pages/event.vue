@@ -60,7 +60,6 @@
 <script lang="ts" setup>
 import { useEvents } from "~/composables/useEvents";
 import { openDialog } from "~/composables/dialogActions";
-import { hasToken as authenticated } from "~/composables/store/session";
 import { showSnackbar } from "~/composables/snackBarActions";
 import type { LOEEvent } from "~/classes/Event";
 

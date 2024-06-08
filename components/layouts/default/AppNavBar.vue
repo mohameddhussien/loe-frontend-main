@@ -17,11 +17,11 @@
                     <button class="theme-button d-md-flex d-none" @click="toggleTheme" />
                     <v-btn variant="plain" color="primary" tile class="rounded" @click="openSearch = true"
                         icon="mdi-calendar-search" />
-                    <v-btn variant="plain" color="primary" tile to="/auth/register" v-if="!authenticated"
+                    <v-btn variant="plain" color="primary" tile to="/auth/register" v-if="!isAuthenticated"
                         class="d-md-flex d-none rounded" icon="mdi-account-plus" />
-                    <v-btn variant="tonal" color="primary" tile to="/auth/login" v-if="!authenticated"
+                    <v-btn variant="tonal" color="primary" tile to="/auth/login" v-if="!isAuthenticated"
                         class="d-md-flex d-none rounded" icon="mdi-login" />
-                    <v-btn variant="plain" color="primary" tile v-if="authenticated" @click="async () => await logout()"
+                    <v-btn variant="plain" color="primary" tile v-if="isAuthenticated" @click="async () => await logout()"
                         class="d-md-flex d-none rounded" icon="mdi-logout" />
                 </v-row>
             </v-container>
@@ -30,9 +30,10 @@
 </template>
 
 <script lang="ts" setup>
-import { logout, hasToken as authenticated } from '@/composables/store/session';
 const { toggleTheme, isDark } = useThemeState()
 const { toggleSideBar } = useSideBar()
+const { isAuthenticated, logout } = useRegistration()
+
 const openSearch = ref(false)
 
 </script>

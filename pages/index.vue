@@ -21,6 +21,11 @@ const { initializeStates } = useEvents()
 await initializeStates()
 
 
+const { isAuthenticated } = useRegistration()
+const { setUser } = useUser()
+if (isAuthenticated && user.value == undefined)
+  await setUser()
+
 const eventsThisWeek = computed(() => {
   const today = new Date();
   const dayOfWeek = today.getDay();

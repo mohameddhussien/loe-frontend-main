@@ -1,11 +1,8 @@
 <template>
     <v-container>
         <v-row>
-            <!-- <v-col cols="12" lg="5" md="6">
-                <v-img :src="img_src" max-width="500" class="rounded-s-sm" />
-            </v-col> -->
             <v-col>
-                <v-card flat>
+                <v-card border flat>
                     <v-card-item>
                         <v-card-text>
                             <v-card-title>

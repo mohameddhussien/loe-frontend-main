@@ -6,14 +6,15 @@
             <v-form @submit.prevent="handleSubmit" validateOn="submit" ref="myForm">
                 <v-container fluid>
                     <v-row>
-                        <!-- Username / Email -->
+                        <!-- Email -->
                         <v-col cols="12">
-                            <field v-model="loginForm.username" prependInnerIcon="mdi-account-box-outline"
-                                label="Username/Email" :rules="[required]" type="username" />
+                            <v-text-field variant="outlined" v-model="loginForm.email"
+                                prependInnerIcon="mdi-account-box-outline" label="Email" :rules="[required, email(false)]"
+                                type="email" />
                         </v-col>
                         <!-- Password -->
                         <v-col cols="12">
-                            <field v-model="loginForm.password"
+                            <v-text-field variant="outlined" v-model="loginForm.password"
                                 :rules="[required, minLength(8), maxLength(24), hasNumber, hasSpecialChar, hasUpperLowerCase]"
                                 prependInnerIcon="mdi-lock-outline" label="Password" type="password" />
                         </v-col>
@@ -30,38 +31,36 @@
     </registration-card>
 </template>
 
-<script setup>
-import { login, loading, hasToken, update, refresh } from '@/composables/store/session'
-const { required, minLength, hasNumber, hasSpecialChar, hasUpperLowerCase, maxLength } = useRules()
-const myForm = ref()
+<script lang="ts" setup>
 definePageMeta({
     layout: 'registration'
 })
 useHead({
     title: 'Login',
 })
-const loginForm = reactive({
-    username: '',
+
+const { required, minLength, hasNumber, hasSpecialChar, hasUpperLowerCase, maxLength, email } = useRules()
+const { login, loading } = useRegistration()
+
+
+const myForm = ref()
+const loginForm = reactive<LoginForm>({
+    email: '',
     password: '',
 })
 
 const handleSubmit = async () => {
-    const formValidation = await myForm.value.validate()
-    // console.log(formValidation.errors)
+    const formValidation = await myForm.value?.validate()
     if (!formValidation.valid)
         return
-    
-    const response = await login(loginForm)
-    if (response.value?.error) {
-        showSnackbar({ snackbarText: response.value?.error, color: 'error' })
-        hasToken.value = false
-        return 0;
+
+    const { data, error } = await login(loginForm)
+    if (error.value && !data.value) {
+        console.log(error.value.statusMessage, ": ", error.value.data)
+        return
     }
-    showSnackbar({ snackbarText: response.value?.success, color: 'success' })
-    hasToken.value = true
-    await update({ token: response.value?.token })
-    await refresh()
-    window.history.back();
+    user.value = data.value?.user;
+    navigateTo('/')
 }
 </script>
 

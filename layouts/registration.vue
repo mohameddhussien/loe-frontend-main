@@ -1,5 +1,5 @@
 <template>
-    <v-app class="bg-primary-3">
+    <v-app class="bg-background">
         <registration-app-bar />
         <v-main>
             <slot></slot>

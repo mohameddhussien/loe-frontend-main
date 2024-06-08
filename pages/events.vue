@@ -38,13 +38,11 @@
 
 <script lang="ts" setup>
 import { useEvents } from '~/composables/useEvents'
-import { hasToken as authenticated } from '~/composables/store/session'
 import { openDialog } from '~/composables/dialogActions';
 import type { LOEEvent } from '~/classes/Event';
 
 const { initializeStates, remainingDays, formatDate } = useEvents()
 await initializeStates()
-
 // const statusMappings = ref<any>([{ 'Sold Out!': 'sold_out.png' }, { 'Coming Soon!': 'coming_soon.png' }])
 // const getImageUrl = (status: any) => {
 //     const mapping = statusMappings.value.find((mapping: any) => status in mapping);
