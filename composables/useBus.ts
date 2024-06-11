@@ -1,5 +1,8 @@
-import { Seat, Seat13, Seat14, Seat21, Seat28, Seat50 } from '@/classes/seat'
-import type { SeatPosition, SeatType } from '@/classes/seat'
+import { ref } from 'vue';
+import { Seat, Seat13, Seat14, Seat21, Seat28, Seat50 } from '@/classes/seat';
+import type { SeatPosition, SeatType } from '@/classes/seat';
+import type { EventBus } from '~/classes/Bus';
+
 const seats = ref<Seat[][]>([]);
 
 type BusSize = { rows: number, cols: number };
@@ -13,7 +16,7 @@ enum BusCapacity {
 }
 
 const useBus = () => {
-
+    const baseURL = useRuntimeConfig().public.baseURL as string
     const busSizeMap: Record<BusCapacity, BusSize> = {
         [BusCapacity.Small]: { rows: 6, cols: 4 },
         [BusCapacity.MediumSmall]: { rows: 7, cols: 4 },
@@ -45,15 +48,14 @@ const useBus = () => {
 
     const getSeatType = (position: SeatPosition, busSize: BusSize): SeatType => {
         let seatType: SeatType = 'normal';
-        const isDriver = position[0] === 0 && position[1] === 0
-        const isPassenger = position[0] == 0 && position[1] == busSize.cols - 1
-        // console.log('Position: ', position)
+        const isDriver = position[0] === 0 && position[1] === 0;
+        const isPassenger = position[0] == 0 && position[1] == busSize.cols - 1;
 
         if (isDriver)
             seatType = 'driver';
         else if (isPassenger)
             seatType = 'passenger';
-        return seatType
+        return seatType;
     }
 
     function incrementSeatCounter(seatType: SeatType, seatCounter: globalThis.Ref<number>) {
@@ -61,35 +63,73 @@ const useBus = () => {
             seatCounter.value++;
     }
 
-    const createSeatsArray = (busCapacity: number): Seat[][] => {
-        const seatCounter = ref(1);
-        const busSize = getBusSize(busCapacity)
+    const createSeatsArray = (bus?: EventBus): Seat[][] => {
+        if (!bus) return [];
 
-        return Array.from({ length: busSize.rows }, (_, i) => {
+        const seatCounter = ref(1);
+        const capacity = parseInt(bus.capacity);
+        const busSize = getBusSize(capacity);
+        const reservations = bus.reservations;
+
+        const seatMap = new Map<number, Seat>();
+
+        const seats = Array.from({ length: busSize.rows }, (_, i) => {
             return Array.from({ length: busSize.cols }, (_, j) => {
                 const position: SeatPosition = [i, j];
                 const seatType = getSeatType(position, busSize);
-                // console.log('Position: ', position)
-                // console.log('Type: ', seatType)
-                // console.log('Seat number(before and after): ', seatCounter.value - 1, seatCounter.value)
-                const mySeat = getSeat(position, seatCounter.value, seatType, busCapacity)
-                mySeat.disabled = mySeat.isNotSeat(position)
-                mySeat.seatType = mySeat.disabled ? 'not-seat' : mySeat.seatType
+                const mySeat = getSeat(position, seatCounter.value, seatType, capacity);
+
+                mySeat.disabled = mySeat.isNotSeat(position);
+                mySeat.seatType = mySeat.disabled ? 'not-seat' : mySeat.seatType;
                 incrementSeatCounter(mySeat.seatType, seatCounter);
-                // console.log('Disabled: ', mySeat.disabled)
-                // console.log('Type: ', mySeat.seatType)
+                // Only add valid seats to the map
+                if (!mySeat.disabled || mySeat.seatType != 'not-seat') {
+                    seatMap.set(mySeat.seatNumber, mySeat);
+                }
+
+                if (mySeat.seatType == 'driver')
+                    mySeat.label = bus.driver_name
+
                 return mySeat;
             });
         });
+
+        // Assign reservations to seats using the map
+        reservations.forEach(reservation => {
+            const seat = seatMap.get(reservation.seat_number);
+            if (seat) {
+                seat.isTaken = true; // Mark the seat as reserved
+                seat.label = reservation.seater ?? reservation.first_name
+            }
+        });
+
+        return seats;
+    };
+
+    const getBusesOfEvent = async (event_id?: number) => {
+        const { data, error } = await useFetch('/buses-of-event', {
+            baseURL,
+            method: 'post',
+            body: {
+                'e_id': event_id
+            }
+        })
+
+        if (error.value)
+            console.error(`Failed to fetch buses of event by id ${event_id}: ${error.value.message}`);
+
+        return { data, error }
     }
 
     return {
         createSeatsArray,
         seats,
+        getBusesOfEvent,
+        getSeat
     }
 }
+
 export {
     useBus,
-    createSeatsArray,
     BusCapacity,
 }

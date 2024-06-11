@@ -34,7 +34,7 @@ class LOEEvent {
     }
 
     public isComingSoon(): boolean {
-        return !this.start_date && !!this.is_published;
+        return !this.start_date || !this.is_published;
     }
 }
 interface LOEEvents extends Array<LOEEvent> { }

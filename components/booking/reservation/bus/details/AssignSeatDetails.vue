@@ -1,46 +1,52 @@
 <template>
-    <base-dialog :disabled="!guestForm.guestName" :dialog-open="isDialogOpen" transition="dialog-bottom-transition"
+    <base-dialog :disabled="!res_form?.seater" :dialog-open="isDialogOpen" transition="dialog-bottom-transition"
         @close="closeDialog" @assign="saveInfo">
-        <template #title>Assign seat to: {{ guestForm.guestName ? guestForm.guestName : 'Enter Guest Details' }}</template>
+        <template #title>
+            <v-toolbar flat color="transparent">
+                <template #title>
+                    {{ res_form?.seater ? 'Assign seat to: ' + res_form?.seater : 'Enter Guest Details' }}
+                </template>
+            </v-toolbar>
+        </template>
         <v-row>
             <v-col cols="12">
-                <field v-model="guestForm.guestName" :validator="$v" label="Name" hint='Guest Name' />
+                <v-text-field v-model="res_form.seater" label="Name" hint='Guest Name' />
             </v-col>
         </v-row>
     </base-dialog>
 </template>
 
 <script lang="ts" setup>
-import { useVuelidate } from '@vuelidate/core';
-import { helpers, required, minLength, maxLength } from '@vuelidate/validators';
 import { Seat } from '~/classes/seat';
+import type { EventBus, Reservation } from '~/classes/Bus';
 
 const emits = defineEmits(['close', 'assign'])
 const props = defineProps({
     isDialogOpen: Boolean,
-    selectedSeat: Seat
+    seat: Seat,
+    bus: Object as PropType<EventBus>
 })
-const guestForm = reactive({
-    guestName: ''
-})
+
 const saveInfo = (val: boolean) => {
-    emits('assign', guestForm.guestName)
+    emits('assign', res_form)
     closeDialog(val)
 }
 const closeDialog = (val: boolean) => {
     emits('close', val)
 }
-const validations = {
-    guestName: {
-        required: helpers.withMessage('Guest Name is required.', required),
-        minLength: helpers.withMessage('Guest must be at least 3 characters.', minLength(3)),
-        maxLength: helpers.withMessage('Guest must be at most 55 characters.', maxLength(55))
-    }
-}
-const $v = useVuelidate(validations, guestForm)
 
+const res_form = reactive({ seater: '', seat_number: -1 });
 watch(() => props.isDialogOpen, (val) => {
-    console.log('Dialog is: ', val ? 'open' : 'closed')
+    if (val) {
+        const foundReservation = props.bus?.reservations.find(r => {
+            return r.seat_number === props.seat?.seatNumber;
+        });
+
+        if (foundReservation) {
+            res_form.seater = foundReservation.seater ?? foundReservation.first_name
+            res_form.seat_number = foundReservation.seat_number
+        }
+    }
 }, { immediate: true })
 </script>
 

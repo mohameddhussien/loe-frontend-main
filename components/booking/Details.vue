@@ -24,15 +24,15 @@
                 </template>
             </v-toolbar>
         </template>
-        <booking-steppers style="margin-bottom: 6.5rem;" />
-        <booking-footer :event="event" />
+        <booking-steppers :event="loeevent"  style="margin-bottom: 6.5rem;" />
+        <booking-footer :event="loeevent" />
     </base-dialog>
 </template>
 <script lang="ts" setup>
+
 const emits = defineEmits(['cancel', 'save'])
 const props = defineProps({
     dialogOpen: Boolean,
-    event: Object
 })
 const opened = ref(props.dialogOpen);
 

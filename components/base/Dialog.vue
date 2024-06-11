@@ -15,10 +15,10 @@
                     </v-col>
                     <v-col v-if="showFooter" cols="12">
                         <v-row justify="end" class="ga-2" no-gutters>
-                            <button @click="saveInfo"
+                            <button @click="saveInfo()"
                                 :class="{ 'special-button': true, 'disabled': disabled, 'primary': !disabled }"
                                 :disabled="disabled">Done</button>
-                            <button @click="closeDialog" class="special-button outline-secondary">Close</button>
+                            <button @click="closeDialog()" class="special-button outline-secondary">Close</button>
                         </v-row>
                     </v-col>
                 </v-row>

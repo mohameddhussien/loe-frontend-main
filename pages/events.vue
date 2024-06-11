@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12" sm="6" md="4" lg="3" xl="2" v-for="(event, key) in events" :key="key">
                 <v-row justify="center" no-gutters align="center">
-                    <v-card flat color="transparent">
+                    <v-card class="event-card" hover>
                         <v-card-text>
                             <v-carousel style="border-radius: 8px;" height="300" cycle :show-arrows="false"
                                 hide-delimiter-background class="elevation-4">
@@ -13,19 +13,18 @@
                             <v-card-title>
                                 <span class="text-h6">{{ event.e_name }}</span>
                             </v-card-title>
-                            <v-card-subtitle class="d-flex justify-space-between">
-                                <span>{{ event.price }}EGP</span>
+                            <v-card-subtitle style="min-height: 1.5rem;" class="d-flex justify-space-between">
+                                <span v-if="event.show_price">{{ event.price }}EGP</span>
                                 {{ remainingDays(event) }}
                             </v-card-subtitle>
                             <v-chip density="compact" color="primary" class="my-2 px-4 w-100" prepend-icon="mdi-minus">
                                 <span>{{ formatDate(event.date_published ?? '') }}</span>
                             </v-chip>
                             <v-btn-group density="comfortable" class="w-100" variant="outlined" divided>
-                                <!-- :disabled="statusMappings.some((mapping: any) => event.STATUS in mapping)" -->
-                                <v-btn :rounded="false" class="w-50" :to="{ path: '/event', query: { key: event.e_key } }"
+                                <v-btn :rounded="false" :disabled="event.isComingSoon()" class="w-50"
+                                    :to="{ path: '/event', query: { key: event.e_key } }"
                                     prepend-icon="mdi-book-outline">See details!</v-btn>
-                                <!-- :disabled="statusMappings.some((mapping: any) => event.STATUS in mapping)" -->
-                                <v-btn :rounded="false" class="w-50" @click="auth(event)"
+                                <v-btn :rounded="false" :disabled="event.isComingSoon()" class="w-50" @click="auth(event)"
                                     prepend-icon="mdi-seat-outline">Book</v-btn>
                             </v-btn-group>
                         </v-card-text>
@@ -38,9 +37,9 @@
 
 <script lang="ts" setup>
 import { useEvents } from '~/composables/useEvents'
-import { openDialog } from '~/composables/dialogActions';
 import type { LOEEvent } from '~/classes/Event';
 
+const { toggleDialog } = useDialog()
 const { initializeStates, remainingDays, formatDate } = useEvents()
 await initializeStates()
 // const statusMappings = ref<any>([{ 'Sold Out!': 'sold_out.png' }, { 'Coming Soon!': 'coming_soon.png' }])
@@ -49,7 +48,8 @@ await initializeStates()
 //     return mapping ? mapping[status] : null;
 // };
 const auth = (event: LOEEvent) => {
-    openDialog(event)
+    loeevent.value = event
+    toggleDialog()
     // console.log(event)
     // if (authenticated.value)
     //     openDialog(event)
@@ -60,4 +60,17 @@ const auth = (event: LOEEvent) => {
 }
 
 </script>
-<style scoped></style>
+<style lang="scss" scoped>
+// @import '~/assets/scss/utils/variables.scss';
+
+// .v-card--hover {
+//     box-shadow: $box-shadow-lighter;
+//     transition: box-shadow 1s ease-in-out;
+
+//     &:hover {
+//         box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+//     }
+// }
+
+// .event-card.v-card--variant-elevated {}
+</style>

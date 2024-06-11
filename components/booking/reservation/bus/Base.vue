@@ -14,13 +14,8 @@ import { Seat } from '~/classes/seat';
 
 const props = defineProps({
     seats: Object as () => Seat[][],
-    capacity: {
-        type: Number,
-        default: 50
-    }
 })
 
-console.log("SEATS: ", props.seats)
 </script>
 
 <style scoped></style>

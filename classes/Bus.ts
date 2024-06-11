@@ -1,30 +1,25 @@
-class Bus {
-    busNumber: string;
-    busPlate: string;
-    busModel: string;
-    pickup: string;
-    driver: {
-        id: string;
-        name: string;
-    };
-    year: number;
-    otherFeatures: {
-        hasAC: boolean;
-    };
-    capacity: number;
 
-    constructor() {
-        this.busNumber = '';
-        this.busPlate = '';
-        this.busModel = '';
-        this.pickup = '';
-        this.driver = { id: '', name: '' };
-        this.year = 0;
-        this.otherFeatures = { hasAC: false };
-        this.capacity = 0;
-    }
+interface Reservation {
+    application_status?: string;
+    event_bus_id?: number;
+    first_name?: string;
+    last_name?: string;
+    reservation_date?: string;
+    reservation_id?: number;
+    seat_number: number;
+    user_id?: number;
+    seater: string;
+}
+interface EventBus {
+    capacity: string;
+    driver_name: string;
+    dropoff_location: string;
+    event_bus_id: number;
+    pickup_location: string;
+    plate_number: string;
+    reservations: Reservation[];
 }
 
-export {
-    Bus
-}
+type EventBuses = EventBus[]
+
+export type { EventBuses, EventBus, Reservation }

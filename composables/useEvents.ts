@@ -4,6 +4,7 @@ type CallingCode = { code: string, country: string }
 type CountriesCodes = CallingCode[]
 
 const events = ref<LOEEvents>([]);
+const loeevent = ref<LOEEvent>()
 
 const useEvents = () => {
     const baseURL = useRuntimeConfig().public.baseURL as string
@@ -99,5 +100,5 @@ const useEvents = () => {
         formatDate,
     }
 }
-export { events, useEvents };
+export { loeevent, events, useEvents };
 export type { CountriesCodes }

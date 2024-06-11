@@ -6,7 +6,7 @@
                 <booking-details-window />
             </template>
             <template #item.2>
-                <reservation-window />
+                <reservation-window :event="event" />
             </template>
             <template #item.3>
                 <h1 class="text-4xl font-bold mb-4">Other Activities</h1>
@@ -28,7 +28,10 @@
 
 <script lang="ts" setup>
 import { useDisplay } from 'vuetify';
-
+import { LOEEvent } from '~/classes/Event';
+defineProps({
+    event: Object as PropType<LOEEvent>
+})
 const { mobile } = useDisplay()
 </script>
 

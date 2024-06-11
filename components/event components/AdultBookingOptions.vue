@@ -2,7 +2,7 @@
     <v-menu>
         <template #activator="{ props }">
             <slot name="activator" :props="props">
-                <button v-bind="{ ...props, ...$attrs }" class="special-button">
+                <button v-bind="{ ...props, ...$attrs }" v-tooltip="'Menu'" class="special-button">
                     <v-icon icon="mdi-menu" />
                 </button>
             </slot>
@@ -20,6 +20,10 @@
 
 <script lang="ts" setup>
 const { removeSpecificAdult } = useBooking()
+
+defineOptions({
+    inheritAttrs: false,
+})
 
 const props = defineProps({
     index: {

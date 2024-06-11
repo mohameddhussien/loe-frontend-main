@@ -5,7 +5,8 @@
                 <template #summary>
                     <v-row align="center">
                         <v-col cols="2" sm="auto">
-                            <button @click="toggleExpandAdult(adultIndex)" class="special-button outline-secondary"
+                            <button v-tooltip="!expandPerson[adultIndex].adult ? 'Expand' : 'Collapse'"
+                                @click="toggleExpandAdult(adultIndex)" class="special-button outline-secondary"
                                 style="width: 48px; height: 48px;">
                                 <v-icon>
                                     {{ expandPerson[adultIndex].adult ? 'mdi-chevron-down' : 'mdi-chevron-right' }}

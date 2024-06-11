@@ -18,12 +18,13 @@ useHead({
   title: 'Ladies only events',
 })
 const { initializeStates } = useEvents()
-await initializeStates()
-
-
-const { isAuthenticated } = useRegistration()
 const { setUser } = useUser()
-if (isAuthenticated && user.value == undefined)
+const { isAuthenticated } = useRegistration()
+
+
+
+await initializeStates()
+if (isAuthenticated.value && user.value == undefined)
   await setUser()
 
 const eventsThisWeek = computed(() => {

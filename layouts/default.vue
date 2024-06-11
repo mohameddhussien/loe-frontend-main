@@ -3,16 +3,15 @@
         <app-side-bar />
         <app-nav-bar />
         <v-main>
-            <booking-details :dialog-open="isDialogOpen" @save="closeDialogAndSave()" @cancel="cancelCurrentProcess()"
-                :event="currentEvent" />
+            <booking-details :dialog-open="isDialogOpen" @save="saveDialog" @cancel="cancelDialog" />
             <slot />
         </v-main>
         <app-footer />
     </v-app>
 </template>
 
-<script setup>
-import { currentEvent, isDialogOpen, closeDialogAndSave, cancelCurrentProcess } from '@/composables/dialogActions';
+<script lang="ts" setup>
+const { saveDialog, cancelDialog } = useDialog()
 </script>
 
 <style scoped></style>

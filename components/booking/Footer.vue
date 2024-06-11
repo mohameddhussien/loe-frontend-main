@@ -6,46 +6,40 @@
             <v-container>
                 <v-row justify="center">
                     <v-col class="d-flex justify-end">
-                        <v-tooltip location="left">
-                            <template #activator="{ props: tooltipProps }">
-                                <button @click="holdNav = !holdNav" v-bind="tooltipProps"
-                                    class="special-button outline-primary" style="width: 40px; height: 40px;">
-                                    <v-icon icon="mdi-arrow-up-circle" />
-                                </button>
-                            </template>
-                            Click To {{ !holdNav ? 'Lock' : 'Unlock' }} Bottom Navigation.
-                        </v-tooltip>
-                    </v-col>
-                    <v-col class="d-flex justify-start">
-                        <v-tooltip location="right">
-                            <template #activator="{ props: tooltipProps }">
-                                <button @click="fullScreen = !fullScreen" v-bind="tooltipProps"
-                                    style="width: 40px; height: 40px;" class="special-button primary">
-                                    <v-icon icon="mdi-fullscreen" />
-                                </button>
-                            </template>
-                            Right-click To {{ !fullScreen ? 'Activate' : 'Deactivate' }} Full-screen Mode.
-                        </v-tooltip>
-                    </v-col>
-                </v-row>
-                <v-row no-gutters>
-                    <h1>Total: {{ event?.price }}EGP</h1>
-                </v-row>
-                <v-row>
-                    <v-divider class="border-opacity-100" />
-                    <booking-table @edit="editItem" @delete="deleteItem" :event="event" :people="Adults"
-                        :disable-actions-on="(!holdNav && !fullScreen)" :itemsPerPage="itemsPerPage" />
-                </v-row>
-            </v-container>
-        </v-bottom-navigation>
-    </v-hover>
-</template>
+                        <button @click="holdNav = !holdNav"
+                            v-tooltip:left="`Click To ${!holdNav ? 'Lock' : 'Unlock'} Bottom Navigation.`"
+                            class="special-button outline-primary" style="width: 40px; height: 40px;">
+                            <v-icon icon="mdi-arrow-up-circle" />
+                        </button>
+                </v-col>
+                <v-col class="d-flex justify-start">
+                    <button
+                        v-tooltip:right="`Right-click To ${!fullScreen ? 'Activate' : 'Deactivate'} Full-screen Mode.`"
+                        @click="fullScreen = !fullScreen" style="width: 40px; height: 40px;"
+                        class="special-button primary">
+                        <v-icon icon="mdi-fullscreen" />
+                    </button>
+                </v-col>
+            </v-row>
+            <v-row no-gutters>
+                <h1>Total: {{ event?.price }}EGP</h1>
+            </v-row>
+            <v-row>
+                <v-divider class="border-opacity-100" />
+                <booking-table @edit="editItem" @delete="deleteItem" :event="event" :people="Adults"
+                    :disable-actions-on="(!holdNav && !fullScreen)" :itemsPerPage="itemsPerPage" />
+            </v-row>
+        </v-container>
+    </v-bottom-navigation>
+</v-hover></template>
 
 <script lang="ts" setup>
+import { LOEEvent } from '~/classes/Event';
+
 const { removeSpecificAdult, removeChildOfAdult, scrollToPerson, selectPerson } = useBooking()
 const emits = defineEmits(['edit', 'delete'])
 const props = defineProps({
-    event: Object,
+    event: Object as PropType<LOEEvent>,
 })
 //  Variable Declaration
 const itemsPerPage = ref(1)
