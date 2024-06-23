@@ -1,5 +1,5 @@
 <template>
-    <ad-grid class="bg-primary-3 border">
+    <ad-grid v-if="!!justAnnouncedEvents.length" class="bg-primary-3 border">
         <swiper-grid title="Just Announced" color="transparent" :breakpoints="comingSoonBreakpoints"
             :items="justAnnouncedEvents">
             <template #default="{ item }">
@@ -7,7 +7,7 @@
             </template>
             <template #header-options>
                 <v-btn @click="filterToEventStatus('just announced')" :disabled="justAnnouncedEvents.length < 4"
-                    variant="tonal">
+                    variant="tonal" class="text-button">
                     View more
                 </v-btn>
             </template>

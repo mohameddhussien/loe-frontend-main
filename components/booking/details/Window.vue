@@ -1,25 +1,23 @@
 <template>
     <booking-base-window title="Booking Details">
-        <v-row>
-            <v-col cols="12">
-                <v-row>
-                    <v-col cols="12" sm>
-                        <p class="text-body-1 text-dark-subtitle">
-                            Reservation Information:
-                            <strong class="border pa-2 rounded-lg">
-                                {{ personCounter.toString() }}
-                            </strong>
-                        </p>
-                    </v-col>
-                    <v-col cols="12" sm="auto">
-                        <increment-decrement-person no-gutters justify="end" justify-sm="start" class="ga-2" add-button-variant="outline-primary" remove-button-variant="outline-white" />
-                    </v-col>
-                </v-row>
-            </v-col>
-            <v-col>
-                <booking-details-content />
-            </v-col>
-        </v-row>
+        <template #title="{ label }">
+            <v-row>
+                <v-col cols="12" sm>
+                    <v-card-title>
+                        <h3>{{ label }}</h3>
+                    </v-card-title>
+                    <v-card-subtitle class="d-flex align-center ga-6 w-100">
+                        <span>Reservation Information: </span>
+                        <span class="text-h5 text-light-title">{{ personCounter.toString() }}</span>
+                    </v-card-subtitle>
+                </v-col>
+                <v-col cols="12" class="d-flex align-end" sm="auto">
+                    <increment-decrement-person no-gutters justify="end" justify-sm="start" class="ga-2"
+                        add-button-variant="outline-primary" remove-button-variant="outline-white" />
+                </v-col>
+            </v-row>
+        </template>
+        <booking-details-content />
     </booking-base-window>
 </template>
 

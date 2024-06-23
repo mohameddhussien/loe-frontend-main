@@ -1,8 +1,15 @@
 <template>
     <v-container>
         <v-row>
-            <v-col cols="12">
-                <h1>{{ title }}</h1>
+            <v-col class="header" cols="12">
+                <slot name="title" :label="title">
+                    <v-card-title>
+                        <h3>{{ title }}</h3>
+                    </v-card-title>
+                    <v-card-subtitle>
+                        <p>{{ subtitle }}</p>
+                    </v-card-subtitle>
+                </slot>
             </v-col>
             <v-col cols="12">
                 <slot />
@@ -15,7 +22,8 @@
 import { useDisplay } from 'vuetify';
 
 const props = defineProps({
-    title: String
+    title: String,
+    subtitle: String
 })
 
 </script>

@@ -30,7 +30,7 @@
                                 <v-text-field variant="solo-filled" density="comfortable"
                                     v-if="!expandPerson[adultIndex].adult" rounded="lg" hide-details v-model="adult.name"
                                     label="Name" />
-                                <h1 v-else>{{ adult.name }}</h1>
+                                <h1 class="text-h4" v-else>{{ adult.name }}</h1>
                             </v-expand-transition>
                         </v-col>
                     </v-row>
@@ -96,7 +96,7 @@
                                                                 v-if="!expandPerson[adultIndex].children[childIndex].expand"
                                                                 rounded="lg" hide-details v-model="child.name"
                                                                 label="Child Name" />
-                                                            <h1 v-else>{{ child.name }}</h1>
+                                                            <h1 class="text-h4" v-else>{{ child.name }}</h1>
                                                         </v-expand-transition>
                                                     </v-col>
                                                 </v-row>

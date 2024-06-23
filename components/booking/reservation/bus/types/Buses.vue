@@ -8,7 +8,7 @@
 import type { PropType } from 'vue';
 import type { EventBus } from '~/classes/Bus';
 import type { Seat } from '~/classes/seat';
-const { seats, createSeatsArray } = useBus()
+const { seats, createSeatsMap } = useBus()
 
 const emits = defineEmits<{ 'selected-seat': [Seat] }>()
 const props = defineProps({
@@ -16,12 +16,12 @@ const props = defineProps({
 })
 
 const selectedSeat = (mySeat: Seat) => {
-    mySeat.isSelected = true
+    if (mySeat.seatType != 'driver')
+        mySeat.isSelected = !mySeat.isSelected
     emits('selected-seat', mySeat)
 }
 watch(() => props.bus, (val) => {
-    seats.value = createSeatsArray(val)
-    console.log(seats.value)
+    seats.value = createSeatsMap(val)
 }, { immediate: true })
 </script>
 

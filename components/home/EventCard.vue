@@ -7,9 +7,9 @@
             </v-carousel>
         </v-card-text>
         <v-card-title class="d-flex justify-space-between align-center">
-            <h5>{{ event.e_name }}</h5>
+            <h6 class="text-h6">{{ event.e_name }}</h6>
             <v-card-subtitle>
-                <p>{{ remainingDays(event) }}</p>
+                <p class="text-caption">{{ remainingDays(event) }}</p>
             </v-card-subtitle>
         </v-card-title>
         <v-card-actions class="justify-end">

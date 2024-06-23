@@ -28,11 +28,11 @@ const {
 
 const props = defineProps({
     addButtonVariant: {
-        type: Object as PropType<Variant>,
+        type: String as PropType<Variant>,
         default: 'primary-lighter'
     },
     removeButtonVariant: {
-        type: Object as PropType<Variant>,
+        type: String as PropType<Variant>,
         default: 'outline-primary'
     },
 })

@@ -1,6 +1,6 @@
 <template>
     <button @click="() => selectSeat(seat)" :disabled="seat?.disabled" :class="{ ...computedClass }">
-        {{ seat?.seatNumber !== -1 ? seat?.seatNumber: '' }}
+        {{ seat?.seatNumber ? seat?.seatNumber: '' }}
     </button>
 </template>
 

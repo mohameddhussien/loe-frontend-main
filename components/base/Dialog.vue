@@ -8,21 +8,9 @@
                     <span>{{ title }} {{ decoratedText }}</span>
                 </v-card-title>
             </slot>
-            <v-container fluid>
-                <v-row>
-                    <v-col cols="12" class="booking-container">
-                        <slot />
-                    </v-col>
-                    <v-col v-if="showFooter" cols="12">
-                        <v-row justify="end" class="ga-2" no-gutters>
-                            <button @click="saveInfo()"
-                                :class="{ 'special-button': true, 'disabled': disabled, 'primary': !disabled }"
-                                :disabled="disabled">Done</button>
-                            <button @click="closeDialog()" class="special-button outline-secondary">Close</button>
-                        </v-row>
-                    </v-col>
-                </v-row>
-            </v-container>
+            <v-card-text>
+                <slot name="body" />
+            </v-card-text>
         </v-card>
     </v-dialog>
 </template>
@@ -53,7 +41,6 @@ const props = defineProps({
 
 const saveInfo = () => {
     emits('assign', false)
-    closeDialog()
 }
 const closeDialog = () => {
     emits('close', false)

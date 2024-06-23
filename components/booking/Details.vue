@@ -1,6 +1,6 @@
 <template>
-    <base-dialog scrollable width="10000" :show-footer="false" v-model="opened" @close="emits('cancel')"
-        transition="dialog-bottom-transition" fullscreen color="background">
+    <base-dialog scrollable width="10000" v-model="opened" @close="emits('cancel')" transition="dialog-bottom-transition"
+        fullscreen color="background">
         <template #title>
             <v-toolbar class="border-b" color="rgba(255,255,255,0.4)">
                 <template #prepend>
@@ -24,8 +24,10 @@
                 </template>
             </v-toolbar>
         </template>
-        <booking-steppers :event="loeevent"  style="margin-bottom: 6.5rem;" />
-        <booking-footer :event="loeevent" />
+        <template #body>
+            <booking-steppers :event="loeevent" style="margin-bottom: 6.5rem;" />
+            <booking-footer :event="loeevent" />
+        </template>
     </base-dialog>
 </template>
 <script lang="ts" setup>

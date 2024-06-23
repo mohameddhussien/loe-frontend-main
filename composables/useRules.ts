@@ -1,3 +1,6 @@
+import type { Reservation } from "~/classes/Bus";
+import type { Deck } from "~/classes/seat";
+
 type RuleFunction = (value: any) => boolean | string;
 type RuleGeneratorFunction = (minAge: number, maxAge: number) => RuleFunction;
 type OptionalValidatorFunction = (optional: boolean) => RuleFunction;
@@ -7,8 +10,11 @@ type Rule = RuleFunction | RuleGeneratorFunction | OptionalValidatorFunction;
 type Rules = Rule[];
 
 const useRules = () => {
+    const range = (value: number, minAge: number, maxAge: number) => {
+        return value >= minAge && value <= maxAge
+    }
     const ageRangeValidator = (minAge: number, maxAge: number, caption: string) => (value: number) => {
-        return value >= minAge && value <= maxAge || `${caption} age is required (${minAge} to ${maxAge} years)`;
+        return range(value, minAge, maxAge) || `${caption} age is required (${minAge} to ${maxAge} years)`;
     };
     const rules = {
         required: (value: any) => !!value || 'Required field',
@@ -32,8 +38,19 @@ const useRules = () => {
         adultAge: (minAge: number, maxAge: number) => ageRangeValidator(minAge, maxAge, 'Adult'),
         childAge: (minAge: number, maxAge: number) => ageRangeValidator(minAge, maxAge, 'Child'),
         age: (value: number) => value > 0 || 'Age must be greater than 0',
-        // isNumber: (value: any) => typeof value === 'number' || 'Value must be a number'
+        numberRange: (min: number, max: number) => (value: number) => range(value, min, max) || `Enter a number in the seat range (${min} to ${max}).`,
+        seatMigratingToIsNotTaken: (seats: Deck, res?: Reservation) => (value: any) => {
+            const seat_num = Number(value)
+            const seat = seats.get(seat_num)
+
+            if (seat && seat.isTaken && res?.seat_number !== seat_num)
+                return "Seat is taken, Please choose another seat."
+            return true
+        },
     };
+    
+
+
 
     return {
         ...rules

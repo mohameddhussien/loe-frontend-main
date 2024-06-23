@@ -58,7 +58,7 @@ const useEvents = () => {
         events.value = await getAllEvents();
     };
 
-    const goToDetails = (e_key: string) => {
+    const goToDetails = (e_key?: string) => {
         navigateTo({
             path: '/event',
             query: {
@@ -72,7 +72,7 @@ const useEvents = () => {
 
         const difference = eventDate.getTime() - currentDate.getTime();
         const remainingDays = Math.ceil(difference / (1000 * 3600 * 24));
-        console.log(remainingDays)
+        // console.log(remainingDays)
         return remainingDays > 0 ? remainingDays + 'DAYS LEFT!' : '';
     }
 

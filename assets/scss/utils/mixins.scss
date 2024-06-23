@@ -85,55 +85,29 @@
 
 /* Seat Mixins */
 
-@mixin seat-styles {
-    @each $text-style in $text-subtitle-1, $text-body-1 {
-        $font-size: map-get($text-style, font-size);
-        $font-weight: map-get($text-style, font-weight);
-        $color: map-get($text-style, color);
-        font-size: $font-size;
-        font-weight: $font-weight;
-        color: $color;
-    }
+@mixin base-seat-styles($bg-color, $hover-bg-color, $active-bg-color, $focus-box-shadow-color: rgba(0, 0, 0, 0.5)) {
+    background-color: $bg-color;
     transition: $transition;
-    background-color: #e4e4e4;
-    box-shadow: $box-shadow-lighter;
 
     &:hover {
-        color: $white-color;
-        background-color: var(--primary-color-1);
+        background-color: $hover-bg-color;
         transform: scale(1.05);
     }
-    
+
     &:active {
-        background-color: var(--primary-color-2);
+        background-color: $active-bg-color;
         transform: scale(0.95);
+        outline: none;
+        box-shadow: 0 0 0 4px $focus-box-shadow-color;
     }
 }
 
-@mixin seat-taken-styles($background) {
-    background-color: $background; // Adjust the color as needed
-    color: white;
-
-    &:hover {
-        background-color: #ff6666; // Adjust the hover color as needed
-    }
-
-    &:active {
-        background-color: #cc0000; // Adjust the active color as needed
-    }
+@mixin seat-styles($bg-color, $hover-bg-color, $active-bg-color, $focus-box-shadow-color: rgba(0, 0, 0, 0.5), $color: var(--light-title-color), $box-shadow: $box-shadow-lighter) {
+    @include base-seat-styles($bg-color, $hover-bg-color, $active-bg-color, $focus-box-shadow-color);
+    color: $color;
+    box-shadow: $box-shadow;
 }
 
-@mixin seat-selected-styles {
-    background-color: #1eff00; // Adjust the color as needed
-
-    &:hover {
-        background-color: #bfff8b; // Adjust the hover color as needed
-    }
-
-    &:active {
-        background-color: #41e600; // Adjust the active color as needed
-    }
-}
 
 /* Other Mixins */
 
@@ -155,4 +129,18 @@
             outline: 1px solid $borderColor;
         }
     }
+}
+
+@mixin text-styles($font-size, $weight, $color) {
+    font-size: $font-size;
+    font-weight: $weight !important;
+    color: $color;
+}
+
+@mixin text-bold {
+    font-weight: 800;
+}
+
+@mixin text-underline {
+    text-decoration: underline !important;
 }

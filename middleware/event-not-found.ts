@@ -4,8 +4,10 @@ export default defineNuxtRouteMiddleware((to) => {
     const targetItemKey = to.query['key']
     const hasItemKey = events.value.some(event => event.e_key === targetItemKey);
 
+    // console.log('targetItemKey: ', targetItemKey)
+
     if (!hasItemKey) {
-      sessionStorage.setItem('eventNotFound', 'true');
+      sessionStorage.setItem('eventNotFound', String(true));
       return navigateTo('/event-not-found');
     }
     sessionStorage.removeItem('eventNotFound');

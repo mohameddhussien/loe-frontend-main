@@ -1,6 +1,6 @@
 <template>
     <div class="event-not-found">
-        <h1>Event Not Found</h1>
+        <h1 class="text-h4">Event Not Found</h1>
         <p>We're sorry, but the event you're looking for doesn't exist.</p>
         <div class="buttons">
             <button @click="goHome">Return to Home</button>

@@ -11,27 +11,30 @@
                             class="special-button outline-primary" style="width: 40px; height: 40px;">
                             <v-icon icon="mdi-arrow-up-circle" />
                         </button>
-                </v-col>
-                <v-col class="d-flex justify-start">
-                    <button
-                        v-tooltip:right="`Right-click To ${!fullScreen ? 'Activate' : 'Deactivate'} Full-screen Mode.`"
-                        @click="fullScreen = !fullScreen" style="width: 40px; height: 40px;"
-                        class="special-button primary">
-                        <v-icon icon="mdi-fullscreen" />
-                    </button>
-                </v-col>
-            </v-row>
-            <v-row no-gutters>
-                <h1>Total: {{ event?.price }}EGP</h1>
-            </v-row>
-            <v-row>
-                <v-divider class="border-opacity-100" />
-                <booking-table @edit="editItem" @delete="deleteItem" :event="event" :people="Adults"
-                    :disable-actions-on="(!holdNav && !fullScreen)" :itemsPerPage="itemsPerPage" />
-            </v-row>
-        </v-container>
-    </v-bottom-navigation>
-</v-hover></template>
+                    </v-col>
+                    <v-col class="d-flex justify-start">
+                        <button
+                            v-tooltip:right="`Right-click To ${!fullScreen ? 'Activate' : 'Deactivate'} Full-screen Mode.`"
+                            @click="fullScreen = !fullScreen" style="width: 40px; height: 40px;"
+                            class="special-button primary">
+                            <v-icon icon="mdi-fullscreen" />
+                        </button>
+                    </v-col>
+                </v-row>
+                <v-row no-gutters>
+                    <v-card-title>
+                        <h3>Total: {{ event?.price }}EGP</h3>
+                    </v-card-title>
+                </v-row>
+                <v-row>
+                    <v-divider class="border-opacity-100" />
+                    <booking-table @edit="editItem" @delete="deleteItem" :event="event" :people="Adults"
+                        :disable-actions-on="(!holdNav && !fullScreen)" :itemsPerPage="itemsPerPage" />
+                </v-row>
+            </v-container>
+        </v-bottom-navigation>
+    </v-hover>
+</template>
 
 <script lang="ts" setup>
 import { LOEEvent } from '~/classes/Event';

@@ -1,48 +1,16 @@
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { themes } from '@/utils/themes'
-import { createVuetify, type DefaultsInstance } from 'vuetify'
+import { createVuetify } from 'vuetify'
+import { defaults } from '@/utils/defaults'
 
-const defaults: DefaultsInstance = {
-    VTextField: {
-        variant: 'outlined',
-        color: 'primary',
-        rounded: 'lg',
-        // density: 'comfortable'
-    },
-    VCombobox: {
-        variant: 'outlined',
-        color: 'primary',
-        rounded: 'lg',
-        // density: 'comfortable'
-    },
-    VTextarea: {
-        variant: 'outlined',
-        color: 'primary',
-        rounded: 'lg',
-        // density: 'comfortable'
-    },
-    VBtn: {
-        variant: 'outlined',
-        rounded: 'lg',
-    },
-    VCard: {
-        rounded: 'lg',
-    },
-    VListItem: {
-        // rounded: 'lg',
-    },
-    VListItemTitle: {
-        class: 'text-body-1'
-    },
-}
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
         theme: {
             themes: themes
         },
         defaults,
-        display: { thresholds: { xs: 465 }, mobileBreakpoint: 465 }
+        display: { thresholds: { xs: 500 }, mobileBreakpoint: 500 }
     })
     app.vueApp.use(vuetify)
 })

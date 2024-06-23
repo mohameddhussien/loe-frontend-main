@@ -21,6 +21,15 @@
     }
 }
 
-.item-group {
-    display: flex;
+.list-expansion {
+    transition: background-color 0.3s, color 0.3s ease-in-out;
+
+    &:focus-within {
+        background-color: var(--primary-color-3);
+    }
+
+    &:hover {
+        color: $white-color;
+        background-color: var(--primary-color-2);
+    }
 }

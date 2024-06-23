@@ -1,9 +1,9 @@
-import { ref } from 'vue';
 import { Seat, Seat13, Seat14, Seat21, Seat28, Seat50 } from '@/classes/seat';
-import type { SeatPosition, SeatType } from '@/classes/seat';
+import type { SeatPosition, SeatType, Seats, Deck } from '@/classes/seat';
 import type { EventBus } from '~/classes/Bus';
 
-const seats = ref<Seat[][]>([]);
+const seats = ref<Seats>(new Map());
+const normalSeats: Deck = reactive(new Map());
 
 type BusSize = { rows: number, cols: number };
 
@@ -16,7 +16,7 @@ enum BusCapacity {
 }
 
 const useBus = () => {
-    const baseURL = useRuntimeConfig().public.baseURL as string
+    const baseURL = useRuntimeConfig().public.baseURL as string;
     const busSizeMap: Record<BusCapacity, BusSize> = {
         [BusCapacity.Small]: { rows: 6, cols: 4 },
         [BusCapacity.MediumSmall]: { rows: 7, cols: 4 },
@@ -31,17 +31,17 @@ const useBus = () => {
         return { rows: 1, cols: 1 };
     }
 
-    const getSeat = (position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number): Seat => {
+    const getSeat = (position: SeatPosition, seatType: SeatType, capacity: number): Seat => {
         if (capacity === 13)
-            return new Seat13(position, seatNumber, seatType, capacity);
+            return new Seat13(position, seatType, capacity);
         else if (capacity === 14)
-            return new Seat14(position, seatNumber, seatType, capacity);
+            return new Seat14(position, seatType, capacity);
         else if (capacity === 21)
-            return new Seat21(position, seatNumber, seatType, capacity);
+            return new Seat21(position, seatType, capacity);
         else if (capacity === 28)
-            return new Seat28(position, seatNumber, seatType, capacity);
+            return new Seat28(position, seatType, capacity);
         else if (capacity === 50)
-            return new Seat50(position, seatNumber, seatType, capacity);
+            return new Seat50(position, seatType, capacity);
         else
             throw new Error("Invalid capacity: " + capacity);
     }
@@ -63,47 +63,51 @@ const useBus = () => {
             seatCounter.value++;
     }
 
-    const createSeatsArray = (bus?: EventBus): Seat[][] => {
-        if (!bus) return [];
+    const createSeatsMap = (bus?: EventBus): Seats => {
+        if (!bus) return new Map();
 
         const seatCounter = ref(1);
         const capacity = parseInt(bus.capacity);
         const busSize = getBusSize(capacity);
         const reservations = bus.reservations;
 
-        const seatMap = new Map<number, Seat>();
+        const seatMap: Seats = new Map();
 
-        const seats = Array.from({ length: busSize.rows }, (_, i) => {
-            return Array.from({ length: busSize.cols }, (_, j) => {
+        Array.from({ length: busSize.rows }, (_, i) => {
+            const rowSeats: Deck = new Map();
+
+            Array.from({ length: busSize.cols }, (_, j) => {
                 const position: SeatPosition = [i, j];
                 const seatType = getSeatType(position, busSize);
-                const mySeat = getSeat(position, seatCounter.value, seatType, capacity);
+                const mySeat = getSeat(position, seatType, capacity);
 
                 mySeat.disabled = mySeat.isNotSeat(position);
                 mySeat.seatType = mySeat.disabled ? 'not-seat' : mySeat.seatType;
+                mySeat.setSeatNumber(seatCounter.value, capacity)
                 incrementSeatCounter(mySeat.seatType, seatCounter);
-                // Only add valid seats to the map
-                if (!mySeat.disabled || mySeat.seatType != 'not-seat') {
-                    seatMap.set(mySeat.seatNumber, mySeat);
-                }
 
-                if (mySeat.seatType == 'driver')
-                    mySeat.label = bus.driver_name
+                if (mySeat.seatType == 'normal' || mySeat.seatType == 'passenger')
+                    normalSeats.set(mySeat.seatNumber, mySeat);
 
-                return mySeat;
+                if (mySeat.seatType === 'driver')
+                    mySeat.label = bus.driver_name;
+
+                rowSeats.set(mySeat.seatNumber, mySeat);
             });
+
+            seatMap.set(i, rowSeats);
         });
 
-        // Assign reservations to seats using the map
         reservations.forEach(reservation => {
-            const seat = seatMap.get(reservation.seat_number);
+            const seat = normalSeats.get(reservation.seat_number)
             if (seat) {
-                seat.isTaken = true; // Mark the seat as reserved
-                seat.label = reservation.seater ?? reservation.first_name
+                seat.isTaken = true;
+                seat.label = reservation.seater ?? reservation.first_name;
+                seat.reservation_id = reservation.reservation_id;
             }
         });
-
-        return seats;
+        console.log(seatMap)
+        return seatMap;
     };
 
     const getBusesOfEvent = async (event_id?: number) => {
@@ -113,20 +117,21 @@ const useBus = () => {
             body: {
                 'e_id': event_id
             }
-        })
+        });
 
         if (error.value)
             console.error(`Failed to fetch buses of event by id ${event_id}: ${error.value.message}`);
 
-        return { data, error }
-    }
+        return { data, error };
+    };
 
     return {
-        createSeatsArray,
-        seats,
+        createSeatsMap,
         getBusesOfEvent,
-        getSeat
-    }
+        getSeat,
+        normalSeats,
+        seats
+    };
 }
 
 export {

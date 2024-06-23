@@ -1,4 +1,5 @@
 @import '../utils/variables.scss';
+@import '../utils/mixins.scss';
 
 // border, border-t, border-b, border-2, border-4
 // .border {
@@ -19,6 +20,9 @@
 //         }
 //     }
 // }
+* {
+    font-family: $font-family;
+}
 
 .text-h1,
 .text-h2,
@@ -32,34 +36,72 @@
 .text-body-2,
 .text-button,
 .text-caption,
-.text-overline .text-underline {
-    font-family: $font-family, sans-serif;
+.text-overline {
     color: var(--text-color);
 }
 
 .text {
 
-    &-h1,
-    &-h2,
-    &-h3,
-    &-h4,
-    &-h5,
-    &-h6,
+    /* Headings */
+    &-h1 {
+        @include text-styles(2.5rem, 900, var(--text-color));
+    }
+
+    &-h2 {
+        @include text-styles(2rem, 825, var(--text-color));
+    }
+
+    &-h3 {
+        @include text-styles(1.75rem, 750, var(--text-color));
+    }
+
+    &-h4 {
+        @include text-styles(1.5rem, 675, var(--text-color));
+    }
+
+    &-h5 {
+        @include text-styles(1.25rem, 600, var(--text-color));
+    }
+
+    &-h6 {
+        @include text-styles(1rem, 525, var(--text-color));
+    }
+
+    /* Body Text */
+    &-body-1 {
+        @include text-styles(1rem, 450, var(--text-color));
+    }
+
+    &-body-2 {
+        @include text-styles(0.875rem, 450, var(--text-color));
+    }
+
+    /* Other Styles */
     &-bold {
-        font-weight: bold;
+        @include text-bold; // Use the separate mixin for bold styles
     }
 
     &-underline {
-        text-decoration: underline !important;
+        @include text-underline; // Use the separate mixin for underline
     }
 
-    &-subtitle-1,
-    &-subtitle-2,
-    &-body-1,
-    &-body-2,
-    &-button,
-    &-caption,
+    &-subtitle-1 {
+        @include text-styles(1rem, bold, var(--text-color));
+    }
+
+    &-subtitle-2 {
+        @include text-styles(0.875rem, bold, var(--text-color));
+    }
+
+    &-button {
+        @include text-styles(0.875rem, bold, var(--primary-color-1));
+    }
+
+    &-caption {
+        @include text-styles(0.75rem, normal, var(--text-color));
+    }
+
     &-overline {
-        font-weight: 400;
+        @include text-styles(0.625rem, bold, var(--text-color));
     }
 }

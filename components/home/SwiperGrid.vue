@@ -4,7 +4,7 @@
             <v-card-text>
                 <slot name="header">
                 <v-card-title class="d-flex justify-space-between">
-                    <h2>{{ title }}</h2>
+                    <h4 class="text-h4">{{ title }}</h4>
                     <slot name="header-options" />
                 </v-card-title>
                 </slot>

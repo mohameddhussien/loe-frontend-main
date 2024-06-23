@@ -3,11 +3,10 @@ type SeatPosition = [number, number];
 
 interface SeatStrategyMethods {
     isNotSeat(position: SeatPosition): boolean;
-    setInitialLabel(capacity: number): string;
 }
 
 class Seat implements SeatStrategyMethods {
-    seat_id?: number;
+    reservation_id?: number;
     label: string;
     disabled: boolean;
     isSelected: boolean;
@@ -16,31 +15,26 @@ class Seat implements SeatStrategyMethods {
     seatNumber: number;
     seatType: SeatType;
 
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
         this.seatType = seatType;
-        this.disabled = this.seatType == 'not-seat';
+        this.disabled = false;
         this.position = position;
-        this.seatNumber = this.setSeatNumber(seatNumber, capacity);
-        this.label = this.setInitialLabel(capacity);
+        this.seatNumber = -1;
+        this.label = '';
         this.isSelected = false;
         this.isTaken = false;
     }
 
 
-    setSeatNumber(seat_number: number, capacity: number): number {
-        if (this.seatType == 'normal')
-            return seat_number
-        if (this.seatType == 'passenger')
-            return capacity
-        return -1
-    }
-
-    setInitialLabel(capacity: number): string {
-        if (this.seatType == 'normal')
-            return this.seatNumber.toString();
-        if (this.seatType == 'passenger')
-            return capacity.toString();
-        return '';
+    setSeatNumber(seat_number: number, capacity: number) {
+        if (this.seatType === 'driver')
+            this.seatNumber = 0
+        if (this.seatType === 'normal')
+            this.seatNumber = seat_number
+        if (this.seatType === 'passenger')
+            this.seatNumber = capacity
+        if (this.seatType === 'not-seat')
+            this.seatNumber = this.position[0] + this.position[1] + capacity
     }
 
     isNotSeat(position: SeatPosition): boolean {
@@ -50,8 +44,8 @@ class Seat implements SeatStrategyMethods {
 }
 
 class Seat13 extends Seat {
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
-        super(position, seatNumber, seatType, capacity);
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
+        super(position, seatType, capacity);
     }
 
     public isNotSeat(position: SeatPosition): boolean {
@@ -62,8 +56,8 @@ class Seat13 extends Seat {
 }
 
 class Seat14 extends Seat {
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
-        super(position, seatNumber, seatType, capacity);
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
+        super(position, seatType, capacity);
     }
 
     public isNotSeat(position: SeatPosition): boolean {
@@ -74,8 +68,8 @@ class Seat14 extends Seat {
 }
 
 class Seat21 extends Seat {
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
-        super(position, seatNumber, seatType, capacity);
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
+        super(position, seatType, capacity);
     }
 
     public isNotSeat(position: SeatPosition): boolean {
@@ -85,8 +79,8 @@ class Seat21 extends Seat {
 }
 
 class Seat28 extends Seat {
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
-        super(position, seatNumber, seatType, capacity);
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
+        super(position, seatType, capacity);
     }
 
     public isNotSeat(position: SeatPosition): boolean {
@@ -97,8 +91,8 @@ class Seat28 extends Seat {
 }
 
 class Seat50 extends Seat {
-    constructor(position: SeatPosition, seatNumber: number, seatType: SeatType, capacity: number) {
-        super(position, seatNumber, seatType, capacity);
+    constructor(position: SeatPosition, seatType: SeatType, capacity: number) {
+        super(position, seatType, capacity);
     }
 
     public isNotSeat(position: SeatPosition): boolean {
@@ -107,10 +101,13 @@ class Seat50 extends Seat {
             ((position[0] === 6 || position[0] === 7) && (position[1] === 3 || position[1] === 4));
     }
 }
-
+type Deck = Map<number, Seat>
+type Seats = Map<number, Deck>
 export { Seat, Seat13, Seat14, Seat21, Seat28, Seat50 };
 
 export type {
+    Deck,
+    Seats,
     SeatType,
     SeatPosition
 };

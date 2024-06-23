@@ -11,15 +11,15 @@
             <v-col>
                 <v-card variant="text">
                     <v-card-title>
-                        <h1>{{ loeevent?.e_name }}</h1>
+                        <h3 class="text-h3">{{ loeevent?.e_name }}</h3>
                     </v-card-title>
                     <v-card-subtitle>
-                        <span>{{ loeevent?.price }}EGP</span>
+                        <span class="text-body-2">{{ loeevent?.price }}EGP</span>
                     </v-card-subtitle>
                     <v-container fluid>
                         <v-row>
                             <v-col cols="12">
-                                <expand-text :content="loeevent?.description" />
+                                <expand-text class="text-body-1" :content="loeevent?.description" />
                             </v-col>
                             <v-col cols="auto">
                                 <whatsapp :event="loeevent" />
@@ -30,13 +30,12 @@
                                 </button>
                             </v-col>
                             <v-col cols="auto">
-                                <h2>{{ personCounter.toString() }} People</h2>
+                                <h5 class="text-h5">{{ personCounter.toString() }} People</h5>
                             </v-col>
                             <v-col cols="12">
                                 <v-row>
                                     <v-col cols="auto">
-                                        <button @click="openBookingDetails" class="special-button primary"
-                                            style="height: 43px;">
+                                        <button @click="openBookingDetails" class="special-button primary">
                                             <v-icon icon="mdi-seat-outline" />
                                             Book Trip
                                         </button>
@@ -65,7 +64,7 @@ const { getEventByID } = useEvents();
 
 getEventByID(query.key as string).then(({ data }) => {
     loeevent.value = data
-    console.log(loeevent.value)
+    // console.log(loeevent.value)
 })
 useHead({
     title: loeevent.value?.e_name,

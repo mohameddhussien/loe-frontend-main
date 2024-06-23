@@ -6,7 +6,7 @@
                     <v-card-item>
                         <v-card-text>
                             <v-card-title>
-                                <h1>{{ title }}</h1>
+                                <h1 class="text-h4">{{ title }}</h1>
                             </v-card-title>
                             <v-card-subtitle>
                                 <p>{{ subtitle }}</p>
