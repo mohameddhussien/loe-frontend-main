@@ -3,10 +3,10 @@
         <template #content>
             <v-row>
                 <v-col cols="12" sm="6">
-                    <field v-model="person.name" :rules="[required]" label="Name" />
+                    <field v-model="person.name" :rules="[required]" label="Name" aria-label="Name" />
                 </v-col>
                 <v-col cols="12" sm="6">
-                    <field v-model="person.age" :rules="rules" label="Age" />
+                    <field v-model="person.age" :rules="rules" label="Age" aria-label="Age" />
                 </v-col>
             </v-row>
         </template>

@@ -8,9 +8,9 @@
                     <span>{{ title }} {{ decoratedText }}</span>
                 </v-card-title>
             </slot>
-            <v-card-text>
+            <v-container fluid>
                 <slot name="body" />
-            </v-card-text>
+            </v-container>
         </v-card>
     </v-dialog>
 </template>

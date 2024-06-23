@@ -4,10 +4,10 @@
             <v-row>
                 <slot name="extra-fields" />
                 <v-col cols="4">
-                    <v-checkbox hide-details v-model="person.pool" label="Pool" />
+                    <v-checkbox hide-details v-model="person.pool" label="Pool" aria-label="Pool" />
                 </v-col>
                 <v-col cols="4">
-                    <v-checkbox hide-details v-model="person.food" label="Food" />
+                    <v-checkbox hide-details v-model="person.food" label="Food" aria-label="Food" />
                 </v-col>
             </v-row>
         </template>

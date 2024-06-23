@@ -4,7 +4,7 @@
             <slot name="summary" :isExpanded="ref(expanded)" />
         </v-col>
         <v-expand-transition>
-            <v-col cols="12" v-if="expanded">
+            <v-col cols="12" v-show="expanded">
                 <slot />
             </v-col>
         </v-expand-transition>

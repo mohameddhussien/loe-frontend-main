@@ -106,7 +106,7 @@ const useBus = () => {
                 seat.reservation_id = reservation.reservation_id;
             }
         });
-        console.log(seatMap)
+        // console.log(seatMap)
         return seatMap;
     };
 

@@ -17,12 +17,16 @@
                 </v-col>
             </v-row>
         </template>
-        <booking-details-content />
+        <booking-details-content ref="content" />
     </booking-base-window>
 </template>
 
 <script lang="ts" setup>
 const { toggleExpandAll } = useBooking()
+const content = ref(null)
+defineExpose({
+    content
+})
 const handleKeyPress = (event: KeyboardEvent) => {
     if (event.shiftKey && event.altKey && event.key === 'J') {
         console.log("Ctrl+J pressed");

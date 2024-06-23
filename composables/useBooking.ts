@@ -121,18 +121,18 @@ const useBooking = () => {
         }
     };
 
-    const scrollToAdult = (adult_index: number) => {
-        const targetElement = document.querySelector(`#adult-${adult_index}`);
+    const scrollToElement = (str: string) => {
+        const targetElement = document.querySelector(`#${str}`);
 
         if (targetElement)
             targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
+    const scrollToAdult = (adult_index: number) => {
+        scrollToElement(`adult-${adult_index}`)
+    };
 
     const scrollToChildOfAdult = (child_index: number) => {
-        const targetElement = document.querySelector(`#child-${child_index}`);
-
-        if (targetElement)
-            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        scrollToElement(`child-${child_index}`)
     };
 
     const selectPerson = (adult_index?: number, child_index?: number) => {
@@ -173,6 +173,7 @@ const useBooking = () => {
         scrollToPerson,
         selectPerson,
         purchaseEvent,
+        scrollToElement
     }
 }
 
